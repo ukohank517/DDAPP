@@ -11,6 +11,21 @@
                     <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                         @csrf
 
+			<div class="form-group row">
+                            <label for="userid" class="col-md-4 col-form-label text-md-right">{{ __('User ID') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="userid" type="text" class="form-control{{ $errors->has('userid') ? ' is-invalid' : '' }}" name="userid" value="{{ old('userid') }}" required>
+
+                                @if ($errors->has('userid'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('userid') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+			
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
