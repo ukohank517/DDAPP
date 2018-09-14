@@ -21,6 +21,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin::'], f
     Route::get('zonecodes/download', 'ZonecodesController@download')->name('zonecodes.download');
 });
 
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin::'], function(){
+    Route::get('skutransfers', 'SkutransfersController@index')->name('skutransfers');
+    Route::post('skutransfers/upload', 'SkutransfersController@upload')->name('skutransfers.upload');
+    Route::get('skutransfers/download', 'SkutransfersController@download')->name('skutransfers.download');
+});
+
+
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

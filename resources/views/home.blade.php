@@ -29,7 +29,7 @@
                                 <ul>
 				    <li><a href=""> 業務DB管理 </a></li>
 				    <li><a href="../public/admin/zonecodes"> 地代コードDB管理 </a></li>
-				    <li><a href=""> SKU互換管理 </a></li>
+				    <li><a href="../public/admin/skutransfers"> SKU互換管理 </a></li>
 				</ul>
 			    </div>
 			    <div><font size="5">-------------------------------------</font></div>
