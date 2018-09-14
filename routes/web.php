@@ -15,6 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin::'], function(){
+    Route::get('zonecodes', 'ZonecodesController@index')->name('zonecodes');
+    Route::post('zonecodes/upload', 'ZonecodesController@upload')->name('zonecodes.upload');
+    Route::get('zonecodes/download', 'ZonecodesController@download')->name('zonecodes.download');
+});
+
+
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/work', 'WorkController@index')->name('work');
