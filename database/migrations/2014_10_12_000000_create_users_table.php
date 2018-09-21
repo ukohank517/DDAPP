@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+	    $table->integer('dealing_box_name')->default(0)->comment('処理しているボックス名');
             $table->rememberToken();
             $table->timestamps();
         });
