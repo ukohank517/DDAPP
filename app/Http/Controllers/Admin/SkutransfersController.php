@@ -4,6 +4,7 @@ namespace DDApp\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use DDApp\Http\Controllers\Controller;
+use Excel;
 use DDApp\Skutransfer;
 
 class SkutransfersController extends Controller
@@ -19,17 +20,37 @@ class SkutransfersController extends Controller
     {   
         
         $this->validate($request, [
-	    'csv_file' => 'required|mimes:xlsx,txt|max:5000'
+	    'csv_file' => 'required|mimes:xlsx,txt|max:1000'
 	]);
 	
 	$file = $request->file('csv_file');
 	
 	// ファイルの読み込み
-	$reader = \Excel::load($file->getRealPath())->get();
-        $rows = $reader->toArray();
+	try{
+	    $reader = \Excel::load($file->getRealPath());
+	    if($reader == null){
+	        throw new \Exception('ファイルの中身は読めませんでした。');
+	    }
+	    // シートのページ数はclassで判断できる
+	    if(preg_match('/SheetCollection$/', get_class($reader->all()))){
+	        //シートが複数
+		$sheet = $reader->first();
+	    }
+	    else if(preg_match('/RowCollection$/', get_class($reader->all()))){
+	        //シートが一枚
+		$sheet = $reader;
+	    }
+	    else{
+	        throw new \Exception('予期せぬエラー。');
+	    }
+	}
+	catch(\Exception $e){
+	    return $e;
+	}
 	
-        Skutransfer::truncate();// DB を clear
+        $rows = $sheet->toArray();
 	
+        Skutransfer::truncate();// DB を clear	
 	
 	if(count($rows)){
             foreach ($rows as $row) {

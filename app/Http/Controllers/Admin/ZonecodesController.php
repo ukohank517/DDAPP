@@ -25,8 +25,29 @@ class ZonecodesController extends Controller
 	$file = $request->file('csv_file');
 	
 	// ファイルの読み込み
-	$reader = \Excel::load($file->getRealPath())->get();
-        $rows = $reader->toArray();
+        try{
+            $reader = \Excel::load($file->getRealPath());
+            if($reader == null){
+                throw new \Exception('ファイルの中身は読めませんでした。');
+            }
+            // シートのページ数はclassで判断できる
+            if(preg_match('/SheetCollection$/', get_class($reader->all()))){
+                //シートが複数
+                $sheet = $reader->first();
+            }
+            else if(preg_match('/RowCollection$/', get_class($reader->all()))){
+                //シートが一枚
+                $sheet = $reader;
+            }
+            else{
+                throw new \Exception('予期せぬエラー。');
+            }
+        }
+        catch(\Exception $e){
+            return $e;
+        }
+
+        $rows = $sheet->toArray();
 	
         Zonecode::truncate();// DB を clear
 	
