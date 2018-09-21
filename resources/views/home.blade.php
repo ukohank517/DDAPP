@@ -17,17 +17,24 @@
 
 		    <nav>
 		        <ul>
-			  
-			  @can('system-only')
-			    <li><a href="">システム管理ページへ</a></li>
-			  @elsecan('admin-higher')
+			  <!--
+			      @can('role')
+			      @elsecan('role')
+			      @endcan
+			    -->
+
+			  @can('unknown-people')
+			    <li><a href="">管理者よりアクセス権限を申請してください。</a></li>
+			  @endcan
+
+			  @can('admin-higher')
 			    <li><div onclick="obj=document.getElementById('adminmenu').style; obj.display=(obj.display=='none')?'block':'none';">
                                 <a style="cursor:pointer;">管理者ツール</a>
 			    </div></li>
 
 			    <div id="adminmenu" sytle="display:none;clear:both;">
                                 <ul>
-				    <li><a href=""> 業務DB管理 </a></li>
+				    <li><a href="../public/admin/ordersheets"> 業務DB管理 </a></li>
 				    <li><a href="../public/admin/zonecodes"> 地代コードDB管理 </a></li>
 				    <li><a href="../public/admin/skutransfers"> SKU互換管理 </a></li>
 				</ul>

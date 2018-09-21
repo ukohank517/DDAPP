@@ -15,17 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin::'], function(){
+Route::group(['prefix' => 'admin', 'middleware'=>['auth', 'can:admin-higher'], 'namespace' => 'Admin', 'as' => 'admin::'], function(){
     Route::get('zonecodes', 'ZonecodesController@index')->name('zonecodes');
     Route::post('zonecodes/upload', 'ZonecodesController@upload')->name('zonecodes.upload');
     Route::get('zonecodes/download', 'ZonecodesController@download')->name('zonecodes.download');
-});
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin::'], function(){
     Route::get('skutransfers', 'SkutransfersController@index')->name('skutransfers');
     Route::post('skutransfers/upload', 'SkutransfersController@upload')->name('skutransfers.upload');
     Route::get('skutransfers/download', 'SkutransfersController@download')->name('skutransfers.download');
+
+    Route::get('ordersheets', 'OrdersheetsController@index')->name('ordersheets');
+    Route::post('ordersheets/upload', 'OrdersheetsController@upload')->name('ordersheets.upload');
+    Route::get('ordersheets/download', 'OrdersheetsController@download')->name('ordersheets.download');
 });
+
 
 
 
