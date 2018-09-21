@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading"><font size="7">地代コード管理ページ</font></div>
-		<div> <font color="red">注意事項: ファイル内のシートが一つしかない（空も不可）ことを<br>確認した上操作してください。 </font></div>
+		<div>上限: about 1M</div>
                 <div class="panel-body">
                     @if (Session::has('flash_message'))
                         <div class="alert alert-success">{{ Session::get('flash_message') }}</div>

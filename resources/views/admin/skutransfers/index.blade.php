@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading"><font size="7">SKUTRANSFER管理ページ</font></div>
-		<div> 注意事項: ファイル内の<font color="red">シートが一つしかない（空も不可） </font>ことを確認した上操作してください</div>
+		<div>上限: about 1M</div>
                 <div class="panel-body">
                     @if (Session::has('flash_message'))
                         <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
