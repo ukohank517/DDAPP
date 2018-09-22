@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"><font size="7">orderSheet管理ページ</font></div>
+                <div class="panel-heading"><font size="7">業務DB管理ページ</font></div>
 		<div>上限: about 1M</div>
 		<div class="panel-body">
                   @if (Session::has('flash_message'))
