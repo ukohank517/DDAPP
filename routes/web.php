@@ -11,9 +11,16 @@
 |
 */
 
+
+Auth::routes();
+
+// 右上のロゴを押すときのあれ
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware'=>['auth', 'can:admin-higher'], 'namespace' => 'Admin', 'as' => 'admin::'], function(){
     Route::get('zonecodes', 'ZonecodesController@index')->name('zonecodes');
@@ -30,11 +37,12 @@ Route::group(['prefix' => 'admin', 'middleware'=>['auth', 'can:admin-higher'], '
 });
 
 
+Route::group(['prefix' => '', 'middleware'=>['auth', 'can:admin-higher'], 'namespace' => 'Work', 'as' => 'work::'], function(){
+    Route::get('/work', 'WorkController@index')->name('work');
+    Route::get('work/greet', 'WorkController@greet')->name('work.greet');
+});
 
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/work', 'WorkController@index')->name('work');
 
 
 /*

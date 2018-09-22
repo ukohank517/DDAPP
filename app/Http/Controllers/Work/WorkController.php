@@ -1,8 +1,10 @@
 <?php
 
-namespace DDApp\Http\Controllers;
+namespace DDApp\Http\Controllers\Work;
 
 use Illuminate\Http\Request;
+use DDApp\Http\Controllers\Controller;
+use DDApp\Ordersheet;
 
 class WorkController extends Controller
 {
@@ -22,5 +24,9 @@ class WorkController extends Controller
     */
     public function index(){
         return view('work');
+    }
+
+    public function greet(){
+        return "hello";
     }
 }
