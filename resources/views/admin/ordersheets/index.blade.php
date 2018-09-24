@@ -10,6 +10,8 @@
 		<div class="panel-body">
                   @if (Session::has('flash_message'))
                     <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
+		  @elseif (Session::has('e_flash_message'))
+		    <div class="alert alert-danger">{{ Session::get('e_flash_message') }}</div>
                   @endif
 
                     {{-- エラーの表示 --}}
@@ -67,10 +69,16 @@
 
                 </div>
             </div>
+
+
+	    <p><font size="5" color="red" face="arial">デンジャラスゾーン</font></p>
+	    <form action="ordersheets/deletelines" method="get">
+		<div> <input type="text" name="fromidx" placeholder="id:till"> </div>
+		<div> <input type="text" name="tillidx" placeholder="id:till"> </div>
+		<div class="button"> <button type="submit"> 指定id削除 </button></div>
+	    </form>	    
+
         </div>
     </div>
 </div>
-
 @endsection
-
-

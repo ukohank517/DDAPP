@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>['auth', 'can:admin-higher'], '
     Route::get('ordersheets', 'OrdersheetsController@index')->name('ordersheets');
     Route::post('ordersheets/upload', 'OrdersheetsController@upload')->name('ordersheets.upload');
     Route::get('ordersheets/download', 'OrdersheetsController@download')->name('ordersheets.download');
+    Route::get('ordersheets/deletelines', 'OrdersheetsController@deletelines')->name('ordersheets.deletelines');
 });
 
 

@@ -79,5 +79,30 @@ class OrdersheetsController extends Controller
             });
         })->download('xlsx');
     }
+    
+
+    //なぜgetしかできない？
+    public function deletelines(Request $request){
+        $this->validate($request, [
+	    'fromidx' => 'required|integer',
+	    'tillidx' => 'required|integer',
+	]);
+
+        $fromidx = $request->fromidx;
+	$tillidx = $request->tillidx;
+
+	if($fromidx > $tillidx){
+	    \Session::flash('e_flash_message', '入力数値の大小関係？');
+            return redirect()->route('admin::ordersheets');
+	}
+
+	for($i = $fromidx; $i <= $tillidx; $i ++){
+	    $ordersheet = Ordersheet::find($i);
+	    if($ordersheet==null)continue;
+	    $ordersheet->delete();
+	}
+	\Session::flash('flash_message', '消せました。');
+        return redirect()->route('admin::ordersheets');
+    }
 
 }
