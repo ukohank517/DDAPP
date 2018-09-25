@@ -11,6 +11,7 @@ class Ordersheet extends Model
     protected $fillable =[
         'date',
 	'box',
+	'id_in_box',
 	'sku',
         'line',
         'stock_stat',

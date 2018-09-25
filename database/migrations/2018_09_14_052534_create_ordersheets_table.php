@@ -17,6 +17,7 @@ class CreateOrdersheetsTable extends Migration
             $table->increments('id');
 	    $table->date('date');
 	    $table->string('box')->nullable();
+	    $table->integer('id_in_box')->nullable();
 	    $table->string('sku');
 	    $table->integer('line');
 	    $table->string('stock_stat')->nullable();
