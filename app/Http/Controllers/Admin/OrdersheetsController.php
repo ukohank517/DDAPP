@@ -3,6 +3,7 @@
 namespace DDApp\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminata\Support\Facades\Auth;
 use DDApp\Http\Controllers\Controller;
 use DDApp\Ordersheet;
 use Excel;
@@ -81,7 +82,7 @@ class OrdersheetsController extends Controller
     }
     
 
-    //なぜgetしかできない？
+    //deleteはgetで処理
     public function deletelines(Request $request){
         $this->validate($request, [
 	    'fromidx' => 'required|integer',
@@ -105,4 +106,8 @@ class OrdersheetsController extends Controller
         return redirect()->route('admin::ordersheets');
     }
 
+    public function test(){
+        $user = Auth::user();
+        return $user;
+    }
 }
