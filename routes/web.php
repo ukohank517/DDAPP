@@ -40,7 +40,9 @@ Route::group(['prefix' => 'admin', 'middleware'=>['auth', 'can:admin-higher'], '
 
 Route::group(['prefix' => '', 'middleware'=>['auth', 'can:admin-higher'], 'namespace' => 'Work', 'as' => 'work::'], function(){
     Route::get('/work', 'WorkController@index')->name('work');
+    Route::get('/work/selfbox', 'WorkController@selfbox')->name('work.selfbox');
     Route::get('work/greet', 'WorkController@greet')->name('work.greet');
+    Route::get('/work/delete_last_line', 'WorkController@delete_last_line')->name('delete_last_line');
 });
 
 
