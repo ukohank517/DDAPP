@@ -44,7 +44,10 @@
 			</table>
 		    </div>
 
-
+		    @if (Session::has('flash_message'))
+		        <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
+		    @endif
+		    
 		    <form action="work/delete_last_line" name="最終行削除" method="GET">
 			<p><input type="submit" value="最終行削除"></p>
 		    </form>

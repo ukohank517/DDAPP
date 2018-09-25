@@ -53,7 +53,22 @@ class WorkController extends Controller
     }
 
     public function delete_last_line(){
-        return "最終行削除";
+    	$box_name = Auth::user()->dealing_box_name;
+	$dealing_items = Ordersheet::where('box', $box_name)
+		       ->orderBy('id_in_box', 'asc')
+		       ->get();
+	$last_item = $dealing_items[count($dealing_items)-1];
+	
+	// ラスト行の処理痕跡を削除
+	$last_item -> box = null;
+	$last_item -> wait_box = null;
+	$last_item -> stock_num -= 1;
+	$last_item -> save();
+	\Session::flash('flash_message', '最終行削除しました。行番号:['.$last_item->line
+							     .'],sku:['.$last_item->sku
+							     .'],注文番号:['.$last_item->order_id
+							     .']');
+	return redirect()->route('work::work');
     }
 
 }
