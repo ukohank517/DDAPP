@@ -30,10 +30,20 @@ class WorkController extends Controller
     public function index(){
         $box_name = Auth::user()->dealing_box_name;
 	$dealing_items = Ordersheet::where('box', $box_name)
-		       ->orderBy('id_in_box', 'asc')
+		       ->orderBy('id_in_box', 'desc')
 		       ->get();
 
-        return view('work', compact('box_name','dealing_items'));
+		       
+        /*
+        if(count($dealing_items)!=0){
+	    $max_goods_in_box = Param::where('param_name', 'max_box_name')->first();
+	    if($dealing_items[0]->id_in_box == $max_goods_in_box->value){
+	        //\Session::flash('full_flag', 'flag');
+		//return "yes";
+	    }
+	}
+	*/
+        return view('work.work', compact('box_name','dealing_items'));
     }
 
 
@@ -45,29 +55,30 @@ class WorkController extends Controller
     }
 
 
-    public function greet(){ 
-        $user = Auth::user();
-	//$user->dealing_box_name = 1;
-	//$user->save();
-	return $user;
-    }
 
     public function delete_last_line(){
     	$box_name = Auth::user()->dealing_box_name;
 	$dealing_items = Ordersheet::where('box', $box_name)
-		       ->orderBy('id_in_box', 'asc')
+		       ->orderBy('id_in_box', 'desc')
 		       ->get();
-	$last_item = $dealing_items[count($dealing_items)-1];
 	
-	// ラスト行の処理痕跡を削除
-	$last_item -> box = null;
-	$last_item -> wait_box = null;
-	$last_item -> stock_num -= 1;
-	$last_item -> save();
-	\Session::flash('flash_message', '最終行削除しました。行番号:['.$last_item->line
-							     .'],sku:['.$last_item->sku
-							     .'],注文番号:['.$last_item->order_id
-							     .']');
+	if(count($dealing_items)!=0){
+	
+	    $last_item_no = $dealing_items[0]->id_in_box;
+	    $last_items = Ordersheet::where('box', $box_name)->where('id_in_box', $last_item_no)->get();
+	    
+	    foreach($last_items as $last_item){	
+	        // ラストNOの処理痕跡を削除
+	        $last_item -> box = null;
+	        $last_item -> wait_box = null;
+	        $last_item -> stock_num = 0;
+	        $last_item -> save();
+	    }
+	    \Session::flash('flash_message', '最終行削除しました。行番号:['.$last_item->line
+							         .'],sku:['.$last_item->sku
+							         .'],注文番号:['.$last_item->order_id
+							         .']');
+	}
 	return redirect()->route('work::work');
     }
 

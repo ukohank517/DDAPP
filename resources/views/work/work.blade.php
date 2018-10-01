@@ -15,13 +15,22 @@
                         </div>
                     @endif
 
-		    <form action="work/greet" name="フォームの名前" method="GET">
-		        <p><input type="text" size="50" placeholder="SKU"></p>
+		    <form action="search_result" name="フォームの名前" method="get">
+		        <p><input type="text" size="50" placeholder="SKU" name="sku_token"></p>
 			<p><input type="submit" value="検索"></p>
 		    </form>
 		    <div>
 		        <div class = "alert  alert-info">ボックス詳細[ボックス名:{{$box_name}}]</div>
+			
+			<form action="work/delete_last_line" name="最終行削除" method="GET" style="text-align:right;">
+			    <p><input type="submit" value="最終行削除"></p>
+		        </form>
 
+			@if (Session::has('flash_message'))
+		            <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
+		        @endif
+
+			
 			<table class="table table-striped table-bordered table-hover">
 			    <thead>
 			        <tr>
@@ -44,18 +53,15 @@
 			</table>
 		    </div>
 
-		    @if (Session::has('flash_message'))
-		        <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
-		    @endif
-		    
-		    <form action="work/delete_last_line" name="最終行削除" method="GET">
-			<p><input type="submit" value="最終行削除"></p>
-		    </form>
 
                 </div>
             </div>
         </div>
     </div>
+    
+
+
+
 </div>
 
 @endsection

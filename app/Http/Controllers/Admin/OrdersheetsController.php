@@ -102,6 +102,7 @@ class OrdersheetsController extends Controller
 	    if($ordersheet==null)continue;
 	    $ordersheet->delete();
 	}
+
 	\Session::flash('flash_message', '消せました。');
         return redirect()->route('admin::ordersheets');
     }

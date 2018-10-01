@@ -9,6 +9,7 @@ class Skutransfer extends Model
     public $timestamps = false;
 
     protected $fillable =[
+        'asin',
         'before',
 	'after'
     ];

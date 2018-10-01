@@ -41,8 +41,13 @@ Route::group(['prefix' => 'admin', 'middleware'=>['auth', 'can:admin-higher'], '
 Route::group(['prefix' => '', 'middleware'=>['auth', 'can:admin-higher'], 'namespace' => 'Work', 'as' => 'work::'], function(){
     Route::get('/work', 'WorkController@index')->name('work');
     Route::get('/work/selfbox', 'WorkController@selfbox')->name('work.selfbox');
-    Route::get('work/greet', 'WorkController@greet')->name('work.greet');
     Route::get('/work/delete_last_line', 'WorkController@delete_last_line')->name('delete_last_line');
+
+    Route::get('/search_result', 'SearchResultController@index')->name('search_result');
+    Route::get('/search_result/deal_item', 'SearchResultController@deal_item')->name('deal_item');
+    Route::get('/search_result/put_into_box', 'SearchResultController@put_into_box')->name('put_into_box');
+
+
 });
 
 

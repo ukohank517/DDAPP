@@ -15,6 +15,7 @@ class CreateSkutransfersTable extends Migration
     {
         Schema::create('skutransfers', function (Blueprint $table) {
             $table->increments('id');
+	    $table->string('asin')->nullable();
 	    $table->string('before');
 	    $table->string('after')->nullable();
         });
