@@ -45,10 +45,9 @@
 			  @endcan
 			    
 			  @can('user-higher')
-			    <li><a href="../public/work">業務ページへ</a></li>
-			    <li><a href="">Box指定印刷</a></li>
-			    <li><a href="">単品処理</a></li>
-			    <li><a href="">単品処理</a></li>
+			    <li><a href="work">業務ページへ</a></li>
+			    <li><a href="print">Box指定印刷</a></li>
+			    <li><a href="">単品処理[to be coming]</a></li>
 			  @endcan
 			</ul>
 		    </nav>
