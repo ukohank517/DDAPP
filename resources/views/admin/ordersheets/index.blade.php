@@ -71,7 +71,8 @@
             </div>
 
 	    <div class="alert alert-danger">デンジャラスゾーン</div>
-	    <form action="ordersheets/deletelines" method="get">
+	    
+	    <form action="{{action('Admin\OrdersheetsController@deletelines')}}" method="get">
 		<div> <input type="text" name="fromidx" placeholder="id:from"> </div>
 		<div> <input type="text" name="tillidx" placeholder="id:till"> </div>
 		<div class="button"> <button type="submit"> 指定id削除 </button></div>

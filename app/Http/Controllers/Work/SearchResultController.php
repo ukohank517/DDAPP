@@ -24,7 +24,7 @@ class SearchResultController extends Controller
     }
 
     /**
-    * Show the work page
+    * 指定されたskuにより検索する。
     *
     * @return \Illuminate\Http\Response
     */
@@ -32,14 +32,13 @@ class SearchResultController extends Controller
 	$info_message="ヒットした結果:";
         $sku_token = $request->sku_token;
 
-
-        $found_items = Ordersheet::where('sku', $sku_token)
+	// skuが一致、在庫<目標、boxがNULL
+        $found_item = Ordersheet::where('sku', $sku_token)
 		     ->whereColumn('stock_num', '<', 'aim_num')
                      ->where('box',NULL)
-		     ->get();
+		     ->first();
 
 		     
-
         $hit_items = [];// 返り値
 
         $wait_box = NULL;
@@ -52,9 +51,8 @@ class SearchResultController extends Controller
 	$stockstat_flag = False;
 
 	//ヒットすればはいる
-	if(count($found_items)){
-	    $found_item = $found_items[0]; 
-	    $hit_items[] = $found_item; 
+	if($found_item != NULL){
+	    $hit_items[] = $found_item; // todo
 	    $plural_marker = $found_item->plural_marker;
 	    
 	    // -----------Flag-----------
@@ -84,13 +82,12 @@ class SearchResultController extends Controller
 	// 複数で待ちボックスなければ、それを生成する。
 	if($plural_flag && $wait_box==NULL){
 	    $max_wait_name = Param::where('param_name', 'max_wait_name')->first()->value;
-	    $box_name_index = Param::where('param_name', 'box_name_index')->first();
+	    $wait_name_index = Param::where('param_name', 'wait_name_index')->first();
 	    
-	    $wait_box = $box_name_index->value;
-	    $box_name_index->value = ($box_name_index->value+1)%$max_wait_name;
-	    $box_name_index->save();
+	    $wait_box = $wait_name_index->value;
+	    $wait_name_index->value = ($wait_name_index->value+1)%$max_wait_name;
+	    $wait_name_index->save();
 	    
-	    $found_item = $found_items[0];
 	    $found_item->wait_box = $wait_box;
 	    $found_item->save();
 	}
@@ -105,6 +102,9 @@ class SearchResultController extends Controller
 
 	return view('work.search_result', compact('info_message', 'sku_token', 'wait_box', 'hit_items', 'overtime_value'));
     }
+
+
+
     
 
     // id用いて+1処理
