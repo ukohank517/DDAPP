@@ -32,10 +32,11 @@ class SearchResultController extends Controller
 	$info_message="ヒットした結果:";
         $sku_token = $request->sku_token;
 
-	// skuが一致、在庫<目標、boxがNULL
+	// skuが一致、在庫<目標、boxがNULL、在庫ではない商品
         $found_item = Ordersheet::where('sku', $sku_token)
 		     ->whereColumn('stock_num', '<', 'aim_num')
                      ->where('box',NULL)
+		     ->where('stock_stat',NULL)
 		     ->first();
 		     
         $pos_num = $found_item->aim_num - $found_item->stock_num;
@@ -144,7 +145,13 @@ class SearchResultController extends Controller
 	        $fin_flag = False;
 	    }
 	}
-	
+	$owner_fin_flag = True;
+	foreach($hit_items as $item){
+	    if($item->stock_stat != NULL)continue;
+	    else if($item->stock_num < $item->aim_num){
+	        $owner_fin_flag = False;
+	    }
+	}
 
 
 	\Session::forget('cancel_flag');
@@ -155,6 +162,7 @@ class SearchResultController extends Controller
 	
 	\Session::flash('secondtime_flag', 'flag');
 	if($fin_flag)	\Session::flash('fin_flag', 'flag');
+	if($owner_fin_flag)	\Session::flash('owner_fin_flag', 'flag');
 	return view('work.search_result', compact('info_message', 'sku_token', 'wait_box', 'hit_items', 'overtime_value'));
     }
 

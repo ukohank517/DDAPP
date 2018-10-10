@@ -8,6 +8,10 @@
             <div class="card">
                 <div class="card-header">searchresult</div>
 
+		@if(!(Session::has('fin_flag')) && (Session::has('owner_fin_flag')))
+		<div class="alert alert-success"><font> 在庫商品以外の分は揃った <font></div>
+		@endif
+
 		<div>{{$info_message}} [ {{$sku_token}} ] </div>
 		<div>待ちボックス: [{{$wait_box}}]</div>
 		<table class="table table-striped table-bordered table-hover">
@@ -34,29 +38,24 @@
 			       <form method="PUT" action="{{action('Work\SearchResultController@deal_item')}}" >
 
 
-			    <select name="add_num">
-			    @for($i=0; $i<=$pos_num ; $i++)
-			    <option value="{{$i}}">{{$i}}</option>
-			    @endfor
-			    </select>
-
-
-
-
-				    <div class="">
-			                +1 <button name="id" value="{{$item->id}}"  type="submit" class="btn btn-primary btn-join">確定</button> 
-			            </div>
+			        <select name="add_num">
+			        @for($i=1; $i<=$pos_num ; $i++)
+			            <option value="{{$i}}">{{$i}}</option>
+			        @endfor
+			        </select>
+				<div class="">
+			            <button name="id" value="{{$item->id}}"  type="submit" class="btn btn-primary btn-join">確定</button> 
+			        </div>
 				</form>
 			    </td>
 			    @endif
-
 			</tr>
 	            @endforeach
 		</table>
 		
 		
 	        @if(Session::has('fin_flag'))
-		    <div class="alert alert-success"> 揃った 
+		    <div class="alert alert-success"> 注文商品のすべてが揃った
 		        <form method="PUT" action="{{action('Work\SearchResultController@put_into_box')}}" >
 		            <div class="">			    
 			        <button name="id" value="{{$item->id}}"  type="submit" class="btn btn-primary btn-join">ボックスへ入れる</button> 
