@@ -19,6 +19,7 @@
 		    <form action="{{action('Work\WorkController@renew_box')}}" method="GET">
 		        <p><input type="submit" value="新ボックスへ"></p>
 		    </form>
+		    <a href="print/print?box_name={{$box_name}}&page[]=greenlabel&page[]=invoice" target="_blank"><font size="6"><u>[印刷可能になりました。]</u></font></a>
 		    @else
 		    <form action="search_result" name="フォームの名前" method="get">
 		        <p><input type="text" size="50" placeholder="SKU" name="sku_token"></p>
