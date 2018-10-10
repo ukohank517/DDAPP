@@ -57,7 +57,8 @@ class PrintController extends Controller
 	}
 	if(in_array("invoice", $page)){
 	    \Session::flash('invoice_flag', 'flag');
-	    $this->make_invoice($box_name);
+            $filename = "invoice.pdf";
+	    $this->make_invoice($box_name,$filename);
 	}
 	
 
@@ -65,52 +66,82 @@ class PrintController extends Controller
     }
     
     public function single_index(Request $request){
-        return view('work.single_print');
+        $items=Ordersheet::where('box','single_waiting')
+	        ->orderBy('id_in_box', 'asc')
+		->get();
+        return view('work.single_print', compact('items'));
     }
 
-    public function single_print(Request $request){
+    public function addition(Request $request){
         $request->validate([
 	    'month'=>'required|integer',
 	    'line'=>'required|integer',
 	]);
+	
+	$month = $request->month;
 	$line = $request->line;
+
+	$box = 'single_waiting';
+
+	$items = Ordersheet::where('line', $line)
+	       ->whereMonth('date', '=', $month)
+	       ->get();
+	if(count($items) == 0){
+	    \Session::flash('addition_fail', '商品見つかりませんでした。');
+	    return redirect()->route('work::print.single_index');
+	}
+	if($items[0]->box == $box){
+	    \Session::flash('addition_fail', '既に処理した商品です！');
+	    return redirect()->route('work::print.single_index');
+	}
+	
+	if($items[0]->plural_marker!=NULL){
+	    $plural_marker = $items[0]->plural_marker;
+	    $items = Ordersheet::where('plural_marker', $plural_marker)->get();
+	}
 	
 
-	$item = Ordersheet::where('line', $line)
-	       ->whereMonth('date', '=', $request->month)
+
+
+	$id_in_box = 1;
+	$waiting_item = Ordersheet::where('box', $box)
+		       ->orderBy('id_in_box', 'desc')
+	               ->first();
+	if($waiting_item!=NULL)
+            $id_in_box = $waiting_item->id_in_box + 1;
+
+	foreach($items as $item){
+	    $item->box= $box;
+	    $item->id_in_box = $id_in_box;
+	    
+	    $item->save();
+	}
+
+	\Session::flash('addition_success', $line);
+        return redirect()->route('work::print.single_index');
+    }
+
+    public function addition_clear(){
+	$box = 'single_waiting';
+
+	$items = Ordersheet::where('box', $box)
 	       ->get();
-	       
-
-	if(count($item) == 0){
-	    return view('work.single_print');
-	}
-	else{
-	    $filename = "single_invoice.pdf";
-            \File::delete($filename);
-
-	    $pdf = PdfDocument::load("pic/invoice_base.pdf"); // PDFドキュメント作成
-	    $template = $pdf->pages[0]; 
-
-	    $pdfPage = new Page($template);
-
-	    if($item[0]->plural_marker !=NULL){
-	        $plural_marker = $item[0]->plural_marker;
-		$item = Ordersheet::where('plural_marker', $marker)->get();
-	    }
-
-	    $idx = NULL;
-	    $this->make_single_invoice($idx, $item, $pdfPage);
-
-            $pdf->pages[] = $pdfPage;
-
-	    unset($pdf->pages[0]);
-            $pdf->save($filename);
+        foreach($items as $item){
+	    $item->box = "single_send";
+	    $item->save();
 	}
 
+        return redirect()->route('work::print.single_index');
+    }
+
+    public function single_print(Request $request){
+	$box = 'single_waiting';
+
+	$filename = "single_invoice.pdf";
+	$this->make_invoice($box,$filename);
 
 	\Session::flash('file_exist', 'flag');
-	return view('work.single_print');
-        
+        return redirect()->route('work::print.single_index');
     }
 
 
@@ -172,8 +203,7 @@ class PrintController extends Controller
 	$pdf->save($filename);
     }
     
-    public function make_invoice($box_name){
-        $filename = "invoice.pdf";
+    public function make_invoice($box_name, $filename){
         \File::delete($filename);
 
 	$pdf = PdfDocument::load("pic/invoice_base.pdf"); // PDFドキュメント作成
@@ -192,19 +222,7 @@ class PrintController extends Controller
 	                       ->where('id_in_box', $idx+1)
 	                       ->get();
 	    
-	    $this->make_single_invoice($idx+1, $item, $pdfPage);
-	
-
-	    $pdf->pages[] = $pdfPage;
-	}
-
-	unset($pdf->pages[0]);
-	$pdf->save($filename);
-    }
-
-
-    public function make_single_invoice($idx, $item, $pdfPage){
-            $num = 0;
+	    $num = 0;
 	    foreach($item as $de){
 	        $num += $de->aim_num;
 	    }
@@ -216,7 +234,7 @@ class PrintController extends Controller
 	    $pdfPage->setFont($font, 9);          //フォント設定
 
             // left up
-	    $pdfPage->drawText($item[0]->customer_name, 30, 555, 'UTF-8');
+	    $pdfPage->drawText($item[0]->customer_name, 30, 540, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress1, 30, 530, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress2, 30, 520, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress3, 30, 510, 'UTF-8');
@@ -227,7 +245,7 @@ class PrintController extends Controller
 	    $pdfPage->drawText($item[0]->phone_number, 45, 434, 'UTF-8');
 
 	    // left down
-	    $pdfPage->drawText($item[0]->customer_name, 25, 275, 'UTF-8');
+	    $pdfPage->drawText($item[0]->customer_name, 25, 270, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress1, 25, 260, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress2, 25, 250, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress3, 25, 240, 'UTF-8');
@@ -237,7 +255,7 @@ class PrintController extends Controller
 
 	    // right up
     	    $pdfPage->drawText($item[0]->line.'~'.$item[count($item)-1]->line, 235, 429, 'UTF-8');
-	    $pdfPage->drawText($idx, 375, 429, 'UTF-8');
+	    $pdfPage->drawText($idx+1, 375, 429, 'UTF-8');
 	    $pdfPage->drawText(date('Y/m/d'), 345, 399, 'UTF-8');
 
 
@@ -255,9 +273,13 @@ class PrintController extends Controller
     	    $pdfPage->setFont($font, 8);          //フォント設定
 	    $pdfPage->drawText($totalprice, 370, 63, 'UTF-8');
 
-        
-    }
 
+	    $pdf->pages[] = $pdfPage;
+	}
+
+	unset($pdf->pages[0]);
+	$pdf->save($filename);
+    }
 
 }
 
