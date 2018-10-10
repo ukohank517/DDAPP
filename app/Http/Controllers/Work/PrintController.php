@@ -216,7 +216,7 @@ class PrintController extends Controller
 	    $pdfPage->setFont($font, 9);          //フォント設定
 
             // left up
-	    $pdfPage->drawText($item[0]->customer_name, 30, 545, 'UTF-8');
+	    $pdfPage->drawText($item[0]->customer_name, 30, 555, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress1, 30, 530, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress2, 30, 520, 'UTF-8');
 	    $pdfPage->drawText($item[0]->adress3, 30, 510, 'UTF-8');
@@ -246,12 +246,13 @@ class PrintController extends Controller
 	    $pdfPage->drawText($item[0]->sendway, 230, 315, 'UTF-8');
 
 	    // detail
-	    $pdfPage->setFont($font, 8);          //フォント設定
-	    $pdfPage->drawText($item[0]->goods_name, 30, 133, 'UTF-8');
-	    $pdfPage->drawText($num, 280, 133, 'UTF-8');
-	    $pdfPage->drawText($singleprice, 320, 133, 'UTF-8');
-	    $pdfPage->drawText($totalprice, 370, 133, 'UTF-8');
+	    $pdfPage->setFont($font, 16);          //フォント設定
+	    $pdfPage->drawText($item[0]->goods_name, 30, 123, 'UTF-8');
+	    $pdfPage->drawText($num, 280, 123, 'UTF-8');
+	    $pdfPage->drawText($singleprice, 320, 123, 'UTF-8');
+	    $pdfPage->drawText($totalprice, 370, 123, 'UTF-8');
 
+    	    $pdfPage->setFont($font, 8);          //フォント設定
 	    $pdfPage->drawText($totalprice, 370, 63, 'UTF-8');
 
         
