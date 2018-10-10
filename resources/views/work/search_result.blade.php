@@ -32,6 +32,17 @@
 			    @if($sku_token == $item->sku && !(Session::has('secondtime_flag')))
 			    <td>
 			       <form method="PUT" action="{{action('Work\SearchResultController@deal_item')}}" >
+
+
+			    <select name="add_num">
+			    @for($i=0; $i<=$pos_num ; $i++)
+			    <option value="{{$i}}">{{$i}}</option>
+			    @endfor
+			    </select>
+
+
+
+
 				    <div class="">
 			                +1 <button name="id" value="{{$item->id}}"  type="submit" class="btn btn-primary btn-join">確定</button> 
 			            </div>
@@ -47,7 +58,7 @@
 	        @if(Session::has('fin_flag'))
 		    <div class="alert alert-success"> 揃った 
 		        <form method="PUT" action="{{action('Work\SearchResultController@put_into_box')}}" >
-		            <div class="">
+		            <div class="">			    
 			        <button name="id" value="{{$item->id}}"  type="submit" class="btn btn-primary btn-join">ボックスへ入れる</button> 
 			    </div>
 		        </form>

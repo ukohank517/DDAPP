@@ -37,7 +37,8 @@ class SearchResultController extends Controller
 		     ->whereColumn('stock_num', '<', 'aim_num')
                      ->where('box',NULL)
 		     ->first();
-
+		     
+        $pos_num = $found_item->aim_num - $found_item->stock_num;
 		     
         $hit_items = [];// 返り値
 
@@ -100,7 +101,7 @@ class SearchResultController extends Controller
 	if($stockstat_flag)\Session::flash('stockstat_flag','flag');
 
 
-	return view('work.search_result', compact('info_message', 'sku_token', 'wait_box', 'hit_items', 'overtime_value'));
+	return view('work.search_result', compact('info_message', 'sku_token', 'wait_box', 'hit_items', 'overtime_value', 'pos_num'));
     }
 
 
@@ -109,12 +110,12 @@ class SearchResultController extends Controller
 
     // id用いて+1処理
     public function deal_item(Request $request){
-	$info_message = "処理した結果:";
+       	$info_message = "処理した結果:";
 	$delay_time = Param::where('param_name', 'delay_days')->get();
 	$overtime_value = $delay_time[0]->value ;
 
 	$id = $request->id;	
-
+	$add_num = $request->add_num;
 
 	// 検索する内容は:
 	$hit_item = Ordersheet::where('id', $id)->first();
@@ -122,7 +123,7 @@ class SearchResultController extends Controller
 	$sku_token = $hit_item->sku;
 	$wait_box = $hit_item->wait_box;
 	
-	$hit_item->stock_num = $hit_item->stock_num + 1;
+	$hit_item->stock_num = $hit_item->stock_num + $add_num;
 	if($hit_item->stock_num > $hit_item->aim_num){
 	    \Session::flash('overlapping_flag', 'flag');
 	    redirect()->route('work::work');
