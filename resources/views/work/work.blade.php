@@ -40,24 +40,31 @@
 
 			
 			<table class="table table-striped table-bordered table-hover">
-			    <thead>
+			    <thead>			
 			        <tr>
 				    <th width="10%">No.</th>
-				    <th width="10%">Line</th>
+				    <th width="10%">行</th>
 				    <th width="15%">sku</th>
+				    <th width="10%">個数</th>
 				    <th width="15%">注文番号</th>
 				    <th width="15%">発送方法</th>
 				</tr>
-			    </thead>
-			    @foreach($dealing_items as $item)
-			        <tr>
+			    
+			        @foreach($dealing_items as $item)
+			            @if(($item->id_in_box)%2 == 0)
+                                        <tr bgcolor="pink">
+                                    @else
+                                        <tr bgcolor="lightskyblue">
+                                    @endif
 				    <td>{{ $item->id_in_box }}</td>
 				    <td>{{ $item->line }}</td>
 				    <td>{{ $item->sku }}</td>
+				    <td>{{ $item->aim_num}}</td>
 				    <td>{{ $item->order_id }}</td>
 				    <td>{{ $item->sendway }}</td>
-				</tr>
-			    @endforeach
+				    </tr>
+			        @endforeach
+			    </thead>
 			</table>
 		    </div>		    
                 </div>
