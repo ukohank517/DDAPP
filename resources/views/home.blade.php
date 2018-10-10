@@ -48,7 +48,7 @@
 			    <li><a href="work">業務ページへ</a></li>
 			    <li><a href="print">Box指定印刷</a></li>
 			    <li><a href="single_print">単品処理</a></li>
-			    <li><a href="">情報検索[coming soon]</a></li>
+			    <li><a href="item_search">情報検索</a></li>
 			  @endcan
 			</ul>
 		    </nav>
