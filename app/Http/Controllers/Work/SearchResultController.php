@@ -123,6 +123,10 @@ class SearchResultController extends Controller
 	$wait_box = $hit_item->wait_box;
 	
 	$hit_item->stock_num = $hit_item->stock_num + 1;
+	if($hit_item->stock_num > $hit_item->aim_num){
+	    \Session::flash('overlapping_flag', 'flag');
+	    redirect()->route('work::work');
+	}
 	$hit_item->save();
 	
         $hit_items = [];// 返り値

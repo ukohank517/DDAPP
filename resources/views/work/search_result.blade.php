@@ -89,6 +89,15 @@
 	    <script>alert("在庫商品です！処理しないなら下の戻るボタンを押してください。");</script>
 	    @endif
 
+
+	    @if(Session::has('overlapping_flag'))
+	        <script>
+	            ret = confirm("処理エラー、作業ページへ遷移。\r\n商品を再検索してください。")
+		    location.href = "../work";
+		</script>
+            @endif
+
+
         </div>
     </div>
 </div>
