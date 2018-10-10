@@ -33,7 +33,7 @@ class PrintController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function index(){        
-        return view('print');
+        return view('work.print');
     }
 
 
@@ -61,11 +61,11 @@ class PrintController extends Controller
 	}
 	
 
-        return view('print', compact('box_name', 'items'));
+        return view('work.print', compact('box_name', 'items'));
     }
     
     public function single_index(Request $request){
-        return view('single_print');
+        return view('work.single_print');
     }
 
     public function single_print(Request $request){
@@ -82,7 +82,7 @@ class PrintController extends Controller
 	       
 
 	if(count($item) == 0){
-	    return view('single_print');
+	    return view('work.single_print');
 	}
 	else{
 	    $filename = "single_invoice.pdf";
@@ -109,7 +109,7 @@ class PrintController extends Controller
 
 
 	\Session::flash('file_exist', 'flag');
-	return view('single_print');
+	return view('work.single_print');
         
     }
 
