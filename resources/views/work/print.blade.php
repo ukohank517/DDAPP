@@ -28,10 +28,10 @@
 		    <div>
 		        <div class="alert alert-info">結果ゾーン</div>
 		        @if (Session::has('greenlabel_flag'))
-		            <p><a href="../greenlabel.pdf" target="_blank"> greenlabel[box: {{$box_name}}] </a></p>
+		            <p><a href="../pic/greenlabel/{{$box_name}}.pdf" target="_blank"> greenlabel[box: {{$box_name}}] </a></p>
 		        @endif
 		        @if (Session::has('invoice_flag'))
-		            <p><a href="../invoice.pdf" target=("_blank")> invoice[box: {{$box_name}}] </a></p>
+		            <p><a href="../pic/invoice/{{$box_name}}.pdf" target=("_blank")> invoice[box: {{$box_name}}] </a></p>
 		        @endif
 			@if (Session::has('greenlabel_flag') || Session::has('invoice_flag'))
 			<div>

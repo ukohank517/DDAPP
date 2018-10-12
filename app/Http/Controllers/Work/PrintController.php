@@ -57,7 +57,7 @@ class PrintController extends Controller
 	}
 	if(in_array("invoice", $page)){
 	    \Session::flash('invoice_flag', 'flag');
-            $filename = "invoice.pdf";
+            $filename = "pic/invoice/".$box_name.".pdf";
 	    $this->make_invoice($box_name,$filename);
 	}
 	
@@ -147,7 +147,7 @@ class PrintController extends Controller
 
 
     public function make_greenlabel($box_name){
-        $filename = "greenlabel.pdf";
+        $filename = "pic/greenlabel/".$box_name.".pdf";
         \File::delete($filename);
         $pdf = new PdfDocument();
 	$width = 215.5;
