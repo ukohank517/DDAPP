@@ -38,8 +38,11 @@ class SearchResultController extends Controller
                      ->where('box',NULL)
 		     ->where('stock_stat',NULL)
 		     ->first();
-		     
-        $pos_num = $found_item->aim_num - $found_item->stock_num;
+
+        $pos_num = 0;
+        if($found_item != NULL){
+            $pos_num = $found_item->aim_num - $found_item->stock_num;
+	}
 		     
         $hit_items = [];// 返り値
 
