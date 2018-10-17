@@ -213,7 +213,8 @@ class PrintController extends Controller
 	$items = Ordersheet::where('box', $box_name)
 	       ->orderBy('id_in_box', 'desc')
 	       ->get();
-	
+
+
 	if(count($items)==0) return;
 	for($idx = 0; $idx < $items[0]->id_in_box; $idx++){
 	    $pdfPage = new Page($template);
@@ -222,7 +223,10 @@ class PrintController extends Controller
 	    $item = Ordersheet::where('box', $box_name)
 	                       ->where('id_in_box', $idx+1)
 	                       ->get();
-	    
+
+	    $cnt = $idx+1;
+            $zone_info = Zonecode::where('code', $item[0]->country_code)->get();
+	    if(count($zone_info)>0){$cnt = $cnt.'/'.$zone_info[0]->no;}
 	    $num = 0;
 	    foreach($item as $de){
 	        $num += $de->aim_num;
@@ -256,7 +260,7 @@ class PrintController extends Controller
 
 	    // right up
     	    $pdfPage->drawText($item[0]->line.'~'.$item[count($item)-1]->line, 235, 429, 'UTF-8');
-	    $pdfPage->drawText($idx+1, 375, 429, 'UTF-8');
+	    $pdfPage->drawText($cnt, 375, 429, 'UTF-8');
 	    $pdfPage->drawText(date('Y/m/d'), 345, 399, 'UTF-8');
 
 
@@ -266,7 +270,7 @@ class PrintController extends Controller
 
 	    // detail
 	    $pdfPage->setFont($font, 16);          //フォント設定
-	    $pdfPage->drawText($item[0]->goods_name, 30, 123, 'UTF-8');
+	    $pdfPage->drawText(substr($item[0]->goods_name, 0 , 30), 20, 123, 'UTF-8');
 	    $pdfPage->drawText($num, 280, 123, 'UTF-8');
 	    $pdfPage->drawText($singleprice, 320, 123, 'UTF-8');
 	    $pdfPage->drawText($totalprice, 370, 123, 'UTF-8');
