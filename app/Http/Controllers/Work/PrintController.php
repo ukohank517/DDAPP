@@ -150,8 +150,8 @@ class PrintController extends Controller
         $filename = "pic/greenlabel/".$box_name.".pdf";
         \File::delete($filename);
         $pdf = new PdfDocument();
-	$width = 215.5;
-	$height = 305.5;
+	$width = 213.5;
+	$height = 292.5;
 
 	$items = Ordersheet::where('box', $box_name)
 	       ->orderBy('id_in_box', 'asc')
@@ -164,9 +164,10 @@ class PrintController extends Controller
 	    $font = Font::fontWithPath('fonts/HanaMinA.ttf');
 	    $pdfPage->setFont($font, 8);
 	    for($i = 0; $i < 4; $i=$i+1){
-	        for($j = 0; $j< 2; $j=$j+1){
+	        for($j = 0; $j < 2; $j=$j+1){
+
 		    $starti = $i * $width;
-		    $startj = $j * $height;
+		    $startj = (1-$j) * $height;
 		    
 	            $item = Ordersheet::where('box', $box_name)
 	                       ->where('id_in_box', $page*8+$i*2+$j+1)
@@ -191,10 +192,10 @@ class PrintController extends Controller
 		    $pdfPage->drawText('USD', $starti+134.4, $startj+119, 'UTF-8');
 		    $pdfPage->drawText($totalprice, $starti+134.4, $startj+105, 'UTF-8');
 		    $pdfPage->drawText('g', $starti+100, $startj+64, 'UTF-8');
-		    $pdfPage->drawText('USD', $starti+159.6, $startj+60, 'UTF-8');
-		    $pdfPage->drawText($totalprice, $starti+159.6, $startj+70, 'UTF-8');
-		    $pdfPage->drawText($page*8+$i*2+$j+1, $starti+34, $startj, 'UTF-8');
-		    $pdfPage->drawText(date("Y/m/d")."   Manabu Hano", $starti+84, $startj, 'UTF-8');
+		    $pdfPage->drawText('USD', $starti+159.6, $startj+65, 'UTF-8');
+		    $pdfPage->drawText($totalprice, $starti+159.6, $startj+75, 'UTF-8');
+		    $pdfPage->drawText($page*8+$i*2+$j+1, $starti+34, $startj+15, 'UTF-8');
+		    $pdfPage->drawText(date("Y/m/d")."   Manabu Hano", $starti+84, $startj+15, 'UTF-8');
 		}
 	    }
 	    $pdf->pages[] = $pdfPage;
