@@ -55,6 +55,12 @@
 
 
             </div>
+            <div class="card">
+                <div class="card-header">アップデート情報</div>
+                <div>
+                    2018-10-18-- コード内部インデント修正
+                </div>
+            </div>
         </div>
     </div>
 </div>
