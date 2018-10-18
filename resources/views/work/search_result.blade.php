@@ -74,9 +74,9 @@
                     function kakuninn(btnNo){
                         @if(Session::has('fin_flag'))
                         ret = confirm("処理したが、ボックスに入れないですか？");
-                        if (ret == true){location.href = "/app/public/work" ;}
+                        if (ret == true){location.href = "{{action('Work\WorkController@index')}}" ;}
                         @else
-                        location.href = "/app/public/work";
+                        location.href = "{{action('Work\WorkController@index')}}" ;
                         @endif
                     }
                     </script>

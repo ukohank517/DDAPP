@@ -21,7 +21,7 @@
                     </form>
                     <a href="print/print?box_name={{$box_name}}&page[]=greenlabel&page[]=invoice" target="_blank"><font size="6"><u>[印刷可能になりました。]</u></font></a>
                     @else
-                    <form action="search_result" name="フォームの名前" method="get">
+                    <form action="{{action('Work\SearchResultController@index')}}" name="フォームの名前" method="get">
                         <p><input type="text" size="50" placeholder="SKU" name="sku_token"></p>
                         <p><input type="submit" value="検索"></p>
                     </form>
@@ -30,7 +30,7 @@
                         <div class = "alert  alert-info">ボックス詳細[ボックス名:{{$box_name}}]</div>
 
 
-                        <form action="work/delete_last_line" name="最終行削除" method="GET" style="text-align:right;">
+                        <form action="{{action('Work\WorkController@delete_last_line')}}" name="最終行削除" method="GET" style="text-align:right;">
                             <p><input type="submit" value="最終行削除"></p>
                         </form>
 

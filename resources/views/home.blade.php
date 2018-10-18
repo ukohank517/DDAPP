@@ -34,9 +34,9 @@
 
                         <div id="adminmenu" sytle="display:none;clear:both;">
                             <ul>
-                                <li><a href="../public/admin/ordersheets"> 業務DB管理 </a></li>
-                                <li><a href="../public/admin/zonecodes"> 地代コードDB管理 </a></li>
-                                <li><a href="../public/admin/skutransfers"> SKU互換管理 </a></li>
+                                <li><a href="{{action('Admin\OrdersheetsController@index')}}"> 業務DB管理 </a></li>
+                                <li><a href="{{action('Admin\ZonecodesController@index')}}"> 地代コードDB管理 </a></li>
+                                <li><a href="{{action('Admin\SkutransfersController@index')}}"> SKU互換管理 </a></li>
                             </ul>
                         </div>
                         <div><font size="5">-------------------------------------</font></div>
@@ -45,10 +45,10 @@
                         @endcan
 
                         @can('user-higher')
-                        <li><a href="work">業務ページへ</a></li>
-                        <li><a href="print">Box指定印刷</a></li>
-                        <li><a href="single_print">単品処理</a></li>
-                        <li><a href="item_search">情報検索</a></li>
+                        <li><a href="{{action('Work\WorkController@index')}}">業務ページへ</a></li>
+                        <li><a href="{{action('Work\PrintController@index')}}">Box指定印刷</a></li>
+                        <li><a href="{{action('Work\PrintController@single_index')}}">単品処理</a></li>
+                        <li><a href="{{action('Work\ItemSearchController@index')}}">情報検索</a></li>
                         @endcan
                     </ul>
                 </nav>
