@@ -7,10 +7,10 @@ use Illuminate\Database\Migrations\Migration;
 class AddColumnRoleUsersTable extends Migration
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    * Run the migrations.
+    *
+    * @return void
+    */
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
@@ -19,10 +19,10 @@ class AddColumnRoleUsersTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    * Reverse the migrations.
+    *
+    * @return void
+    */
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {

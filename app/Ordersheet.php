@@ -10,9 +10,9 @@ class Ordersheet extends Model
 
     protected $fillable =[
         'date',
-	'box',
-	'id_in_box',
-	'sku',
+        'box',
+        'id_in_box',
+        'sku',
         'line',
         'stock_stat',
         'sendway',
@@ -28,7 +28,7 @@ class Ordersheet extends Model
         'phone_number',
         'goods_name',
         'aim_num',
-	'stock_num',
+        'stock_num',
         'plural_marker',
         'wait_box'
     ];

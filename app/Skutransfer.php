@@ -11,6 +11,6 @@ class Skutransfer extends Model
     protected $fillable =[
         'asin',
         'before',
-	'after'
+        'after'
     ];
 }

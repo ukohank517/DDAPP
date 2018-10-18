@@ -23,35 +23,35 @@ class ItemSearchController extends Controller
     }
 
     /**
-    * 
-    * 
+    *
+    *
     * @return \Illuminate\Http\Response
     */
     public function index(Request $request){
         $request->validate([
-	    'year'=>'nullable|integer',
-	    'month'=>'nullable|integer',
-	    'line'=>'nullable|integer',
-	]);
+            'year'=>'nullable|integer',
+            'month'=>'nullable|integer',
+            'line'=>'nullable|integer',
+        ]);
 
 
         $year = $request->year;
-	$month = $request->month;
-	$box = $request->box;
-	$sku = $request->sku;
-	$line = $request->line;
-	$orderid = $request->orderid;
+        $month = $request->month;
+        $box = $request->box;
+        $sku = $request->sku;
+        $line = $request->line;
+        $orderid = $request->orderid;
 
-	$query = Ordersheet::query();
-	
-	if($year!=NULL) $query->whereYear('date', '=', $year);
-	if($month!=NULL) $query->whereMonth('date', '=', $month);
-	if($box!=NULL) $query->where('box', $box);
-	if($sku!=NULL) $query->where('sku', $sku);
-	if($line!=NULL) $query->where('line', $line);
-	if($orderid!=NULL) $query->where('order_id', $orderid);
+        $query = Ordersheet::query();
 
-	
+        if($year!=NULL) $query->whereYear('date', '=', $year);
+        if($month!=NULL) $query->whereMonth('date', '=', $month);
+        if($box!=NULL) $query->where('box', $box);
+        if($sku!=NULL) $query->where('sku', $sku);
+        if($line!=NULL) $query->where('line', $line);
+        if($orderid!=NULL) $query->where('order_id', $orderid);
+
+
         $ordersheets = $query->paginate(30);
         return view('work.item_search', compact('ordersheets', 'year', 'month', 'box', 'sku', 'line', 'orderid'));
     }
@@ -61,4 +61,3 @@ class ItemSearchController extends Controller
     }
 
 }
-

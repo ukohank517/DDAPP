@@ -9,8 +9,8 @@ class Zonecode extends Model
     public $timestamps = false;
 
     protected $fillable = [
-	'country',
-	'code',
-	'no'
+        'country',
+        'code',
+        'no'
     ];
 }
