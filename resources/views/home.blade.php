@@ -55,10 +55,26 @@
 
 
             </div>
+
             <div class="card">
                 <div class="card-header">アップデート情報</div>
-                <div>
-                    2018-10-18-- コード内部インデント修正
+                <script type="text/javascript">
+                function new_info(y,m,d,mes){
+                    info = "&nbsp &nbsp"+y+"-"+m+"-"+d+"&nbsp &nbsp"+mes;
+                    keep_day = 2;// この日数表示される
+                    old_day = new Date(y+"/"+m+"/" +d);
+                    new_day = new Date();
+                    d = (new_day-old_day)/(1000*24*3600);
+
+                    if(d <= keep_day){
+                        info= info+ "&nbsp &nbsp NEW!"
+                    }
+                    document.write(info);
+                }
+                </script>
+                <div style="background: #ffffff; width:630px; border: 1px solid #f5f5f5; height:200px; padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px; overflow: scroll;">
+                    <p><a> <script>new_info(2018,10,18,"印刷書類にボックス名追加")</script></a></p>
+                    <p><a> <script>new_info(2018,10,18,"アップデート情報欄追加")</script></a></p>
                 </div>
             </div>
         </div>

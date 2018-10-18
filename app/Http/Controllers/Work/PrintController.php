@@ -100,9 +100,6 @@ class PrintController extends Controller
             $items = Ordersheet::where('plural_marker', $plural_marker)->get();
         }
 
-
-
-
         $id_in_box = 1;
         $waiting_item = Ordersheet::where('box', $box)
         ->orderBy('id_in_box', 'desc')
@@ -194,7 +191,7 @@ class PrintController extends Controller
                     $pdfPage->drawText('g', $starti+100, $startj+64, 'UTF-8');
                     $pdfPage->drawText('USD', $starti+159.6, $startj+65, 'UTF-8');
                     $pdfPage->drawText($totalprice, $starti+159.6, $startj+75, 'UTF-8');
-                    $pdfPage->drawText($page*8+$i*2+$j+1, $starti+34, $startj+15, 'UTF-8');
+                    $pdfPage->drawText($box_name.'/'.($page*8+$i*2+$j+1), $starti+34, $startj+15, 'UTF-8');
                     $pdfPage->drawText(date("Y/m/d")."   Manabu Hano", $starti+84, $startj+15, 'UTF-8');
                 }
             }
@@ -269,7 +266,6 @@ class PrintController extends Controller
             $pdfPage->drawText($item[0]->sendway, 230, 315, 'UTF-8');
 
             // detail
-            $pdfPage->setFont($font, 16);          //フォント設定
             $pdfPage->drawText(substr($item[0]->goods_name, 0 , 30), 20, 123, 'UTF-8');
             $pdfPage->drawText($num, 280, 123, 'UTF-8');
             $pdfPage->drawText($singleprice, 320, 123, 'UTF-8');
@@ -278,6 +274,8 @@ class PrintController extends Controller
             $pdfPage->setFont($font, 8);          //フォント設定
             $pdfPage->drawText($totalprice, 370, 63, 'UTF-8');
 
+            $pdfPage->setFont($font, 10);          //フォント設定
+            $pdfPage->drawText("box:".$box_name,60, 30, 'UTF-8');
 
             $pdf->pages[] = $pdfPage;
         }
