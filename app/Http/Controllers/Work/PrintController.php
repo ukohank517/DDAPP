@@ -184,6 +184,9 @@ class PrintController extends Controller
                     if(count($names)>=2){
                         $namestr = explode(")",$names[1]);
                         $pdfPage->drawText('('.$namestr[0].')', $starti+28, $startj+105, 'UTF-8');
+                        if(count($namestr) >=2){
+                            $pdfPage->drawText($namestr[1], $starti+28, $startj+91, 'UTF-8');
+                        }
                     }
                     $pdfPage->drawText('g', $starti+112, $startj+101, 'UTF-8');
                     $pdfPage->drawText('USD', $starti+134.4, $startj+119, 'UTF-8');

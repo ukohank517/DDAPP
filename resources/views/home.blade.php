@@ -73,6 +73,7 @@
                 }
                 </script>
                 <div style="background: #ffffff; width:auto; border: 1px solid #f5f5f5; height:200px; padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px; overflow: scroll;">
+                    <p><a> <script>new_info(2018,10,19,"グリーンラベルの商品名に個数を表示するように")</script></a></p>
                     <p><a> <script>new_info(2018,10,18,"印刷書類にボックス名追加")</script></a></p>
                     <p><a> <script>new_info(2018,10,18,"アップデート情報欄追加")</script></a></p>
                 </div>
