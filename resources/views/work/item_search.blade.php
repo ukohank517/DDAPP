@@ -57,6 +57,7 @@
                                 <th width="15%">行</th>
                                 <th width="15%">box</th>
                                 <th width="15%">sku / 個数</th>
+                                <th width="10%">処理</th>
                             </tr>
                             @foreach($ordersheets as $item)
                             @if($item->plural_marker!=NULL)
@@ -68,6 +69,11 @@
                                     <td>{{ $item->line }}</td>
                                     <td>{{ $item->box }}</td>
                                     <td>{{ $item->sku }} / {{$item->aim_num}}</td>
+                                    @if($item->box != NULL || ($item->aim_num <= $item->stock_num))
+                                    <td>済</td>
+                                    @else
+                                    <td>/</td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </thead>
