@@ -64,6 +64,24 @@ class ItemSearchController extends Controller
         if($line!=NULL) $query->where('line', $line);
         if($orderid!=NULL) $query->where('order_id', $orderid);
 
+        if($line != NULL){
+            $items=$query->get();
+
+            $query = Ordersheet::query();
+            $ids=array();
+            $plural_markers=array();
+            foreach($items as $item){
+                if($item->plural_marker != NULL) $plural_markers[] = $item->plural_marker;
+                else $ids[] = $item->id;
+            }
+
+            $query = Ordersheet::query();
+            $query->wherein('id', $ids);
+
+            foreach($plural_markers as $plural_marker){
+                $query->orWhere('plural_marker', $plural_marker);
+            }
+        }
 
         $ordersheets = $query->paginate(30)->appends([
             'year' => $year,

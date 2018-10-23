@@ -22,7 +22,7 @@
 
                     <div class="alert alert-info">検索条件：</div>
                     <div>
-                        <form action="{{action('Work\ItemSearchController@index')}}" method="GET">
+                        <form action="{{action('Work\ItemSearchController@search')}}" method="GET">
                             <table class="table table-striped">
                                 <tr>
                                     <th width="15%">年</th>
