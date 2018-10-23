@@ -55,4 +55,5 @@ Route::group(['prefix' => '', 'middleware'=>['auth', 'can:user-higher'], 'namesp
     Route::get('/single_print/print', 'PrintController@single_print')->name('print.single_print');
 
     Route::get('/item_search', 'ItemSearchController@index')->name('item_search');
+    Route::get('/item_search/search', 'ItemSearchController@search')->name('item_search.search');
 });

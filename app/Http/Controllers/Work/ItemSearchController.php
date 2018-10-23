@@ -27,7 +27,20 @@ class ItemSearchController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index(Request $request){
+    public function index(){
+        $year = NULL;
+        $month = NULL;
+        $box = NULL;
+        $sku = NULL;
+        $line = NULL;
+        $orderid = NULL;
+        $ordersheets = Ordersheet::paginate(30);
+
+        return view('work.item_search', compact('ordersheets', 'year', 'month', 'box', 'sku', 'line', 'orderid'));
+    }
+
+
+    public function search(Request $request){
         $request->validate([
             'year'=>'nullable|integer',
             'month'=>'nullable|integer',
@@ -52,12 +65,16 @@ class ItemSearchController extends Controller
         if($orderid!=NULL) $query->where('order_id', $orderid);
 
 
-        $ordersheets = $query->paginate(30);
+        $ordersheets = $query->paginate(30)->appends([
+            'year' => $year,
+            'month' => $month,
+            'box' => $box,
+            'sku' => $sku,
+            'line' => $line,
+            'orderid' => $orderid,
+        ]);
+
         return view('work.item_search', compact('ordersheets', 'year', 'month', 'box', 'sku', 'line', 'orderid'));
-    }
-
-
-    public function search(){
     }
 
 }
