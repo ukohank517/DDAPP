@@ -234,16 +234,53 @@ class PrintController extends Controller
             $singleprice = (int)(10/$num);
             $totalprice = $singleprice * $num;
 
+            $adress1 = $item[0]->adress1;
+            $adress2 = $item[0]->adress2;
+            $adress3 = $item[0]->adress3;
+            $adress4 = $item[0]->adress4;
+            $adress5 = "";
+            $adress6 = "";
+
+            if(strlen($adress3)> 42){
+                $space_idx = 0;
+                for($i = 42; ; $i--){
+                    if($adress3[$i] == " "){
+                        $space_idx = $i;
+                        break;
+                    }
+                }
+                $adress5 = $adress4;
+                $adress4 = substr($adress3, $space_idx);
+                $adress3 = substr($adress3, 0, $space_idx);
+            }
+
+            if(strlen($adress2)> 42){
+                $space_idx = 0;
+                for($i = 42; ; $i--){
+                    if($adress2[$i] == " "){
+                        $space_idx = $i;
+                        break;
+                    }
+                }
+                $adress6 = $adress5;
+                $adress5 = $adress4;
+                $adress4 = $adress3;
+                $adress3 = substr($adress2, $space_idx);
+                $adress2 = substr($adress2, 0, $space_idx);
+            }
+
 
             $font = Font::fontWithPath('fonts/HanaMinA.ttf');// 日本語も使用可能のフォント
             $pdfPage->setFont($font, 9);          //フォント設定
 
             // left up
             $pdfPage->drawText($item[0]->customer_name, 30, 540, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress1, 30, 530, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress2, 30, 520, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress3, 30, 510, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress4, 30, 500, 'UTF-8');
+            $pdfPage->drawText($adress1, 30, 530, 'UTF-8');
+            $pdfPage->drawText($adress2, 30, 520, 'UTF-8');
+            $pdfPage->drawText($adress3, 30, 510, 'UTF-8');
+            $pdfPage->drawText($adress4, 30, 500, 'UTF-8');
+            $pdfPage->drawText($adress5, 30, 490, 'UTF-8');
+            $pdfPage->drawText($adress6, 30, 480, 'UTF-8');
 
             $pdfPage->drawText($item[0]->postid, 55, 467, 'UTF-8');
             $pdfPage->drawText($item[0]->country, 35, 451, 'UTF-8');
@@ -251,12 +288,14 @@ class PrintController extends Controller
 
             // left down
             $pdfPage->drawText($item[0]->customer_name, 25, 270, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress1, 25, 260, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress2, 25, 250, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress3, 25, 240, 'UTF-8');
-            $pdfPage->drawText($item[0]->adress4, 25, 230, 'UTF-8');
+            $pdfPage->drawText($adress1, 25, 260, 'UTF-8');
+            $pdfPage->drawText($adress2, 25, 250, 'UTF-8');
+            $pdfPage->drawText($adress3, 25, 240, 'UTF-8');
+            $pdfPage->drawText($adress4, 25, 230, 'UTF-8');
+            $pdfPage->drawText($adress5, 25, 220, 'UTF-8');
+            $pdfPage->drawText($adress6, 25, 210, 'UTF-8');
 
-            $pdfPage->drawText($item[0]->phone_number, 40, 217, 'UTF-8');
+            $pdfPage->drawText($item[0]->phone_number, 40, 200, 'UTF-8');
 
             // right up
             $pdfPage->drawText($item[0]->line.'~'.$item[count($item)-1]->line, 235, 429, 'UTF-8');

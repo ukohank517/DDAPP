@@ -19,7 +19,7 @@
         <section>
             <h1>403 Forbidden</h1>
             <p><font face="HGP創英角ﾎﾟｯﾌﾟ体">悪いな、ここより先は、通行止めだ</font></p>
-            <img src="{{ asset('pic/kirito.jpg') }}" width="631" height="660">
+            <img src="{{ asset('pic/material/kirito.jpg') }}" width="631" height="660">
         </section>
     </div>
 </body>
