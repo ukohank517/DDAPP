@@ -73,11 +73,11 @@
     </nav>
     <!-- ナビゲーション -->
     <div class="box">
-        <a href="{{ route('admin::ordersheets') }}" class="btn-menu">業務管理DB</a>
-        <a href="{{ route('admin::skutransfers') }}" class="btn-menu">SKU互換DB</a>
-        <a href="{{ route('admin::zonecodes') }}" class="btn-menu">地代コードDB</a>
+        <a href="{{ action('Work\WorkController@index') }}" class="btn-menu">業務ページ</a>
+        <a href="{{ action('Work\PrintController@index') }}" class="btn-menu">Box指定印刷</a>
+        <a href="{{ action('Work\PrintController@index') }}" class="btn-menu">単品処理</a>
+        <a href="{{ action('Work\ItemSearchController@index') }}" class="btn-menu">情報検索</a>
     </div>
-
     <main class="py-4">
         @yield('content')
     </main>
