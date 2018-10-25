@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.index')
 
 @section('content')
 <div class="container">
@@ -77,8 +77,6 @@
                     <div> <input type="text" name="tillidx" placeholder="id:till"> </div>
                     <div class="button"> <button type="submit"> 指定id削除 </button></div>
                 </form>
-
-
 
             </div>
         </div>
