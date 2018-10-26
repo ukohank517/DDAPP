@@ -75,7 +75,7 @@
     <div class="box">
         <a href="{{ action('Work\WorkController@index') }}" class="btn-menu">業務ページ</a>
         <a href="{{ action('Work\PrintController@index') }}" class="btn-menu">Box指定印刷</a>
-        <a href="{{ action('Work\PrintController@index') }}" class="btn-menu">単品処理</a>
+        <a href="{{ action('Work\PrintController@single_index') }}" class="btn-menu">単品処理</a>
         <a href="{{ action('Work\ItemSearchController@index') }}" class="btn-menu">情報検索</a>
     </div>
     <main class="py-4">
