@@ -34,9 +34,10 @@ class ItemSearchController extends Controller
         $sku = NULL;
         $line = NULL;
         $orderid = NULL;
+        $stat = NULL;
         $ordersheets = Ordersheet::paginate(30);
 
-        return view('work.item_search', compact('ordersheets', 'year', 'month', 'box', 'sku', 'line', 'orderid'));
+        return view('work.item_search', compact('ordersheets', 'year', 'month', 'box', 'sku', 'line', 'orderid', 'stat'));
     }
 
 
@@ -47,13 +48,13 @@ class ItemSearchController extends Controller
             'line'=>'nullable|integer',
         ]);
 
-
         $year = $request->year;
         $month = $request->month;
         $box = $request->box;
         $sku = $request->sku;
         $line = $request->line;
         $orderid = $request->orderid;
+        $stat = $request->stat;
 
         $query = Ordersheet::query();
 
@@ -67,7 +68,6 @@ class ItemSearchController extends Controller
         if($line != NULL){
             $items=$query->get();
 
-            $query = Ordersheet::query();
             $ids=array();
             $plural_markers=array();
             foreach($items as $item){
@@ -83,6 +83,25 @@ class ItemSearchController extends Controller
             }
         }
 
+        if($stat != NULL){
+            $items = $query->get();
+
+            $iddone = array();
+            $idnotyet = array();
+            foreach($items as $item){
+                if(($item->stock_num == $item->aim_num) || ($item->box != NULL)) {
+                    $iddone[] = $item->id;
+                }
+                else {
+                    $idnotyet[] = $item->id;
+                }
+            }
+
+            $query = Ordersheet::query();
+            if($stat == "done")$query->wherein('id', $iddone);
+            else $query->wherein('id', $idnotyet);
+        }
+
         $ordersheets = $query->paginate(30)->appends([
             'year' => $year,
             'month' => $month,
@@ -90,9 +109,10 @@ class ItemSearchController extends Controller
             'sku' => $sku,
             'line' => $line,
             'orderid' => $orderid,
+            'stat' => $stat,
         ]);
 
-        return view('work.item_search', compact('ordersheets', 'year', 'month', 'box', 'sku', 'line', 'orderid'));
+        return view('work.item_search', compact('ordersheets', 'year', 'month', 'box', 'sku', 'line', 'orderid', 'stat'));
     }
 
 }

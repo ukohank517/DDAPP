@@ -61,6 +61,7 @@
                 <div style="background: #ffffff; width:auto; border: 1px solid #f5f5f5; height:300px; padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px; overflow: scroll;">
                     <table class = "table table-striped table-bordered table-hover">
                         <thead>
+                            <tr><script>new_info(2018,10,29,"検索条件に商品の発送状況欄追加")</script></tr>
                             <tr><script>new_info(2018,10,25,"画面ページリフォーム(ナビゲーション追加)")</script></tr>
                             <tr><script>new_info(2018,10,23,"(1)インボイスの長住所を改行するように改善。<br> (2-1) 行番号で商品検索時、同じ注文番号の詳細も表示するように改善; <br>(2-2)商品検索時、多数ヒットする際のページネーションの表示バグを修正。")</script></tr>
                             <tr><script>new_info(2018,10,20,"商品検索ページに処理済みマークを追加")</script></tr>
