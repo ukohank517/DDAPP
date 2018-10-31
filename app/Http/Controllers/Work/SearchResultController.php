@@ -36,11 +36,8 @@ class SearchResultController extends Controller
         $found_item = Ordersheet::where('sku', $sku_token)
         ->whereColumn('stock_num', '<', 'aim_num')
         ->where('box',NULL)
-        ->where('stock_stat', '<>', "在庫")
+        ->where('stock_stat', NULL)
         ->first();
-
-        // 在庫 4973202250114
-        // NULL 4902505408076
 
         $pos_num = 0;
         if($found_item != NULL){
