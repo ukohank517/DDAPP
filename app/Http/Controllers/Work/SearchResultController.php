@@ -36,8 +36,11 @@ class SearchResultController extends Controller
         $found_item = Ordersheet::where('sku', $sku_token)
         ->whereColumn('stock_num', '<', 'aim_num')
         ->where('box',NULL)
-        ->where('stock_stat',NULL)
+        ->where('stock_stat', '<>', "在庫")
         ->first();
+
+        // 在庫 4973202250114
+        // NULL 4902505408076
 
         $pos_num = 0;
         if($found_item != NULL){
@@ -53,7 +56,6 @@ class SearchResultController extends Controller
         $plural_flag = False;
         $sendway_flag = False;
         $overtime_flag = False;
-        $stockstat_flag = False;
 
         //ヒットすればはいる
         if($found_item != NULL){
@@ -68,7 +70,6 @@ class SearchResultController extends Controller
             $overtime_value = $delay_time[0]->value ;
             if($overtime_value < (strtotime("now")-strtotime($found_item->date))/60/60/24) $overtime_flag = True;
             if(($found_item->aim_num > 1)||($plural_marker != NULL)) $plural_flag = True;
-            if($found_item->stock_stat != NULL) $stockstat_flag = True;
             // --------------------------
 
 
@@ -102,8 +103,6 @@ class SearchResultController extends Controller
         if($plural_flag)\Session::flash('plural_flag','flag');
         if($sendway_flag)\Session::flash('sendway_flag','flag');
         if($overtime_flag)\Session::flash('overtime_flag','flag');
-        if($stockstat_flag)\Session::flash('stockstat_flag','flag');
-
 
         return view('work.search_result', compact('info_message', 'sku_token', 'wait_box', 'hit_items', 'overtime_value', 'pos_num'));
     }

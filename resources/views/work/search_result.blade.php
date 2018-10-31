@@ -95,9 +95,7 @@
                 @if(Session::has('overtime_flag'))
                 <script>alert("{{$overtime_value}}日よりも前の注文商品にヒットした。");</script>
                 @endif
-                @if(Session::has('stockstat_flag'))
-                <script>alert("在庫商品です！処理しないなら下の戻るボタンを押してください。");</script>
-                @endif
+
 
 
                 @if(Session::has('overlapping_flag'))
