@@ -1,6 +1,6 @@
 <?php
 
-namespace DDApp;
+namespace DDApp\Model\OrderReceive;
 
 use Illuminate\Database\Eloquent\Model;
 
