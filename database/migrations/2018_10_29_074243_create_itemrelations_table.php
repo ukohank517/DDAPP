@@ -13,8 +13,19 @@ class CreateItemrelationsTable extends Migration
      */
     public function up()
     {
+        /*
+        関係は :
+        親sku A * 1 + 親sku B * 2 = 子sku
+        基本の個は、親で管理
+        jan = 子　で管理する。
+        */
         Schema::create('itemrelations', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('parent_sku');
+            $table->string('child_sku');
+            $table->integer('parent_num');
+            $table->string('child_jan');
+            $table->string('child_ASIN');
             $table->timestamps();
         });
     }
