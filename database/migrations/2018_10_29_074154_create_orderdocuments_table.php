@@ -21,7 +21,6 @@ class CreateOrderdocumentsTable extends Migration
             $table->string('parent_num');
             $table->string('supplier');
             $table->integer('price')->nullable();
-            $table->timestamps();
         });
     }
 

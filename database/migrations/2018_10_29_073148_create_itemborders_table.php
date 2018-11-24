@@ -23,7 +23,6 @@ class CreateItembordersTable extends Migration
             $table->string('parent_sku');
             $table->double('yellow_border', 10, 4);
             $table->double('red_border', 10, 4);
-            $table->timestamps();
         });
     }
 

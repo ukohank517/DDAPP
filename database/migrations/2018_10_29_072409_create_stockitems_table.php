@@ -19,7 +19,6 @@ class CreateStockitemsTable extends Migration
             $table->integer('stock_num');
             $table->integer('price');
             $table->integer('place');
-            $table->timestamps();
         });
     }
 

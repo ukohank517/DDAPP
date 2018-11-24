@@ -25,8 +25,7 @@ class CreateItemrelationsTable extends Migration
             $table->string('child_sku');
             $table->integer('parent_num');
             $table->string('child_jan');
-            $table->string('child_ASIN');
-            $table->timestamps();
+            $table->string('child_asin');
         });
     }
 
