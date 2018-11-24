@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Orderdocument extends Model
 {
     protected $table = "orderdocuments";
+    public $timestamps = false;
 
     protected $fillable = [
         'doc_id',
