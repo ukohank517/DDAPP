@@ -80,93 +80,39 @@
 
 
 
-        <ul class="nav">
-        <li><a href="#">Home</a>
+<div class="box">
+    <ul id="flip2" class="dropmenu"><!-- http://weboook.blog22.fc2.com/blog-entry-408.html -->
+        <li><a href="#">レポート</a>
+            <ul>
+                <li><a href="#">デフォルト</a></li>
+                <li><a href="#">新規設定</a></li>
+            </ul>
         </li>
-        <li><a href="#">Strategy</a>
-        <ul>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a></li>
-        <li><a href="#">b1</a>
-        <ul>
-        <li><a href="#">b2</a></li>
-        <li><a href="#">b2</a></li>
-        </ul>
+        <li><a href="#">発注関連</a>
+            <ul>
+                <li><a href="#">発注書追加</a></li>
+                <li><a href="#">発注書確認</a></li>
+            </ul>
         </li>
-        </ul>
+        <li><a href="#">受注関連</a>
+            <ul>
+                <li><a href="#">受注処理(発注書検索)</a></li>
+            </ul>
         </li>
-        <li><a href="#">About</a>
-        <ul>
-        <li><a href="#">c1</a>
-        <ul>
-        <li><a href="#">c2</a></li>
-        <li><a href="#">c2</a></li>
-        </ul>
+        <li><a href="#">DB更新＆確認</a>
+            <ul>
+                <li><a href="{{ route('order_receive::itemrelations.index') }}">親子sku, JAN 関連</a></li>
+                <li><a href="#">判断基準</a></li>
+            </ul>
         </li>
-        <li><a href="#">c1</a></li>
-        </ul>
-        </li>
-        <li><a href="#">Works</a>
-        <ul>
-        <li><a href="#">d1</a></li>
-        <li><a href="#">d1</a>
-        <ul>
-        <li><a href="#">d2</a></li>
-        <li><a href="#">d2</a>
-        <ul class="left">
-        <li><a href="#">d3</a></li>
-        <li><a href="#">d3</a></li>
-        </ul>
-        </li>
-        </ul>
-        </li>
-        </ul>
-        </li>
-        <li><a href="#">Contact</a>
-        <ul>
-        <li><a href="#">e1</a>
-        <ul class="left">
-        <li><a href="#">e2-1</a></li>
-        <li><a href="#">e2-1</a></li>
-        </ul>
-        </li>
-        <li><a href="#">e1</a>
-        <ul class="left">
-        <li><a href="#">e2-2</a></li>
-        <li><a href="#">e2-2</a></li>
-        </ul>
-        </li>
-        </ul>
-        </li>
-        <!--nav--></ul>
-        <div class="content">
-        <p>transitionプロパティで動きのある横並びドロップダウンメニューです。メニュー部分にマウスオーバーするとコンテンツの上に子メニューが展開します。</p>
-        <p>transitionプロパティはdisplayでの制御をサポートしていないため、子孫メニューの制御はoverflowで行っております。displayでの制御も可能ですが、その場合動きはなくなります。</p>
-        </div>
+    </ul>
+</div>
 
 
 
-
-
-        <div class="content">
-            <main class="py-4">
-                <div>
-                    <p>^^^^^^^-^^^^^^^^</p>
-                </div>
-                @yield('content')
-            </main>
-        </div>
+        <main class="py-4">
+            @yield('content')
+        </main>
 
     </div>
 </body>
@@ -232,23 +178,4 @@
         </ul>
     </li>
 </ul>
-<div class="content">
-    <p>モデル作ろう。。。</p>
-    <p>-</p>
-    <p>レポート:</p>
-    <p>黄色、赤色一覧</p>
-    <p>日程再設定、基準再設定の黄色赤色一覧</p>
-    <p>-</p>
-    <p>発注:</p>
-    <p>全部DL</p>
-    <p>yellow redだけのDL</p>
-    <p>指定SKUのDL</p>
-    <p>-</p>
-    <p>受注:</p>
-    <p>skuより注文履歴検索</p>
-    <p>履歴確定で更新</p>
-    <main class="py-4">
-        @yield('content')
-    </main>
-
-</div>
+-->
