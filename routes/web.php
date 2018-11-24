@@ -57,3 +57,13 @@ Route::group(['prefix' => '', 'middleware'=>['auth', 'can:user-higher'], 'namesp
     Route::get('/item_search', 'ItemSearchController@index')->name('item_search');
     Route::get('/item_search/search', 'ItemSearchController@search')->name('item_search.search');
 });
+
+Route::group(['prefix' => 'order_receive', 'middleware'=>['auth', 'can:user-higher'], 'namespace' => 'OrderReceive', 'as' => 'order_receive::'], function(){
+    Route::get('info', 'StockOrderController@index')->name('info');
+
+
+    Route::get('itemrelations/index', 'ItemrelationsController@index')->name('itemrelations.index');
+    Route::post('itemrelations/upload', 'ItemrelationsController@upload')->name('itemrelations.upload');
+    Route::get('itemrelations/download', 'ItemrelationsController@download')->name('itemrelations.download');
+
+});
