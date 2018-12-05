@@ -66,4 +66,15 @@ Route::group(['prefix' => 'order_receive', 'middleware'=>['auth', 'can:user-high
     Route::post('itemrelations/upload', 'ItemrelationsController@upload')->name('itemrelations.upload');
     Route::get('itemrelations/download', 'ItemrelationsController@download')->name('itemrelations.download');
 
+
+    Route::get('itemborders/index', 'ItembordersController@index')->name('itemborders.index');
+    Route::post('itemborders/upload', 'ItembordersController@upload')->name('itemborders.upload');
+    Route::get('itemborders/download', 'ItembordersController@download')->name('itemborders.download');
+
+    Route::get('orderdocuments/index', 'OrderdocumentsController@index')->name('orderdocuments.index');
+    Route::post('orderdocuments/upload', 'OrderdocumentsController@upload')->name('orderdocuments.upload');
+    Route::get('orderdocuments/download', 'OrderdocumentsController@download')->name('orderdocuments.download');
+    Route::get('orderdocuments/confirm', 'OrderdocumentsController@confirm')->name('orderdocuments.confirm');
+
+    Route::get('receive/index', 'ReceiveController@index')->name('receive.index');
 });
