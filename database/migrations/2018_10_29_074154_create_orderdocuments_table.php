@@ -19,7 +19,7 @@ class CreateOrderdocumentsTable extends Migration
             $table->date('order_date');
             $table->string('parent_sku');
             $table->string('parent_num');
-            $table->string('supplier');
+            $table->string('supplier')->nullable();
             $table->integer('price')->nullable();
         });
     }
