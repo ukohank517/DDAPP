@@ -12,3 +12,8 @@
         </div>
     </div>
     @endsection
+<!--
+参考URL:
+http://corder.link/jquery-dynamic-row-add-del/
+みてみてね！
+-->
