@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading"><font size="7">受注処理</font></div>
-
-
+                <p>formの書き込みが必要</p>
+                <div><input name="search_id" placeholder="検索ID" required></div>
             </div>
         </div>
     </div>
