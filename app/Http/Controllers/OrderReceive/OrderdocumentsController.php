@@ -19,6 +19,18 @@ class OrderdocumentsController extends Controller
 
     public function upload(Request $request)
     {
+        $orderdocuments = Orderdocument::all();
+        $docids = [];
+        foreach ($orderdocuments as $orderdocument) {
+            if(!in_array($orderdocument->doc_id, $docids)){
+                $docids[] = $orderdocument->doc_id;
+            }
+        }
+        if(in_array($request->doc_id, $docids)){
+            \Session::flash('e_flash_message', '同じ発注IDは既に使用されました。');
+            return redirect()->route('order_receive::orderdocuments.index');
+        }
+
         $this->validate($request, [
             'csv_file' => 'required|mimes:xlsx,txt|max:1500'
         ]);
@@ -70,6 +82,7 @@ class OrderdocumentsController extends Controller
                         'parent_num' => $row['parent_num'],
                         'supplier' => $row['supplier'],
                         'price' => $row['price'],
+                        'done' => false,
                     ],[
                     ]);
                     $items[] = $item;
