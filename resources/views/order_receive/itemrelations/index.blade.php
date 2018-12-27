@@ -6,6 +6,9 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading"><font size="7">親sku ⇔ 子sku ⇔ JAN</font></div>
+                <div>
+                    <p>見方: parent_skuA * parent_numA + parent_skuB * parent_numB = child_sku </p>
+                </div>
                 <div>上限: about 1M</div>
                 <div class="panel-body">
                     @if (Session::has('flash_message'))
