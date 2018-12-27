@@ -16,6 +16,7 @@ class Orderdocument extends Model
         'parent_num',
         'price',
         'supplier',
-        'price'
+        'price',
+        'done'
     ];
 }

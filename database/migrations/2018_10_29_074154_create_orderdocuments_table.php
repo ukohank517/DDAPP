@@ -21,6 +21,7 @@ class CreateOrderdocumentsTable extends Migration
             $table->string('parent_num');
             $table->string('supplier')->nullable();
             $table->integer('price')->nullable();
+            $table->boolean('done');
         });
     }
 
