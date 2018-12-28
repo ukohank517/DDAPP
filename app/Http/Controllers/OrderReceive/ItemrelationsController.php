@@ -80,4 +80,11 @@ class ItemrelationsController extends Controller
         })->download('xlsx');
     }
 
+    public function select(Request $request){
+
+    }
+    public function edit(Request $request){
+
+    }
+
 }

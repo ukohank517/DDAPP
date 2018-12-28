@@ -117,4 +117,11 @@ class OrderdocumentsController extends Controller
         $orderdocuments = Orderdocument::paginate(15);
         return view('order_receive.orderdocuments.confirm', compact('orderdocuments'));
     }
+
+    public function select(Request $request){
+        return $request;
+    }
+    public function edit(Request $request){
+        return $request;
+    }
 }
