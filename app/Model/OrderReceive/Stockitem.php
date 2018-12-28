@@ -13,6 +13,7 @@ class Stockitem extends Model
         'parent_sku',
         'stock_num',
         'price',
-        'place'
+        'place',
+        'memo',
     ];
 }

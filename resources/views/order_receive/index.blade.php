@@ -103,6 +103,7 @@
             <ul>
                 <li><a href="{{ route('order_receive::itemrelations.index') }}">親子sku, JAN 関連</a></li>
                 <li><a href="{{ route('order_receive::itemborders.index') }}">判断基準</a></li>
+                <li><a href="{{ route('order_receive::stockitems.index') }}">在庫管理</a></li>
             </ul>
         </li>
     </ul>

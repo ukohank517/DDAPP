@@ -77,4 +77,11 @@ Route::group(['prefix' => 'order_receive', 'middleware'=>['auth', 'can:user-high
     Route::get('orderdocuments/confirm', 'OrderdocumentsController@confirm')->name('orderdocuments.confirm');
 
     Route::get('receive/index', 'ReceiveController@index')->name('receive.index');
+    Route::get('receive/research', 'ReceiveController@research')->name('receive.research');
+    Route::get('receive/detail', 'ReceiveController@detail')->name('receive.detail');
+    Route::get('receive/receive', 'ReceiveController@receive')->name('receive.receive');
+
+    Route::get('stockitems/index', 'StockitemsController@index')->name('stockitems.index');
+    Route::get('stockitems/select', 'StockitemsController@select')->name('stockitems.select');
+    Route::get('stockitems/edit', 'StockitemsController@edit')->name('stockitems.edit');
 });
