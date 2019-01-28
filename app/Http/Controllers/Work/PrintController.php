@@ -234,41 +234,77 @@ class PrintController extends Controller
             $singleprice = (int)(10/$num);
             $totalprice = $singleprice * $num;
 
-            $adress1 = $item[0]->adress1;
-            $adress2 = $item[0]->adress2;
-            $adress3 = $item[0]->adress3;
-            $adress4 = $item[0]->adress4;
+            $adress1 = "";
+            $adress2 = "";
+            $adress3 = "";
+            $adress4 = "";
             $adress5 = "";
             $adress6 = "";
+            $onelinechar = 35;
 
-            if(strlen($adress3)> 42){
+            $adress1 = $item[0]->adress1;
+            $adress1.= " ";
+            $adress1.= $item[0]->adress2;
+            $adress1.= " ";
+            $adress1.= $item[0]->adress3;
+            $adress1.= " ";
+            $adress1.= $item[0]->adress4;
+
+            if(strlen($adress1) > $onelinechar){
                 $space_idx = 0;
-                for($i = 42; ; $i--){
-                    if($adress3[$i] == " "){
+                for($i = $onelinechar; ; $i--){
+                    if($adress1[$i] == " "){
                         $space_idx = $i;
                         break;
                     }
                 }
-                $adress5 = $adress4;
-                $adress4 = substr($adress3, $space_idx);
-                $adress3 = substr($adress3, 0, $space_idx);
+                $adress2 = substr($adress1, $space_idx);
+                $adress1 = substr($adress1, 0, $space_idx);
             }
-
-            if(strlen($adress2)> 42){
+            if(strlen($adress2) > $onelinechar){
                 $space_idx = 0;
-                for($i = 42; ; $i--){
+                for($i = $onelinechar; ; $i--){
                     if($adress2[$i] == " "){
                         $space_idx = $i;
                         break;
                     }
                 }
-                $adress6 = $adress5;
-                $adress5 = $adress4;
-                $adress4 = $adress3;
                 $adress3 = substr($adress2, $space_idx);
                 $adress2 = substr($adress2, 0, $space_idx);
             }
-
+            if(strlen($adress3) > $onelinechar){
+                $space_idx = 0;
+                for($i = $onelinechar; ; $i--){
+                    if($adress3[$i] == " "){
+                        $space_idx = $i;
+                        break;
+                    }
+                }
+                $adress4 = substr($adress3, $space_idx);
+                $adress3 = substr($adress3, 0, $space_idx);
+            }
+            if(strlen($adress4) > $onelinechar){
+                $space_idx = 0;
+                for($i = $onelinechar; ; $i--){
+                    if($adress4[$i] == " "){
+                        $space_idx = $i;
+                        break;
+                    }
+                }
+                $adress5 = substr($adress4, $space_idx);
+                $adress4 = substr($adress4, 0, $space_idx);
+            }
+            if(strlen($adress5) > $onelinechar){
+                $space_idx = 0;
+                for($i = $onelinechar; ; $i--){
+                    if($adress5[$i] == " "){
+                        $space_idx = $i;
+                        break;
+                    }
+                }
+                $adress6 = substr($adress5, $space_idx);
+                $adress5 = substr($adress5, 0, $space_idx);
+            }
 
             $font = Font::fontWithPath('fonts/HanaMinA.ttf');// 日本語も使用可能のフォント
             $pdfPage->setFont($font, 9);          //フォント設定
