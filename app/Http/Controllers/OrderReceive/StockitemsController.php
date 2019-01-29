@@ -26,7 +26,13 @@ class StockitemsController extends Controller
     }
 
     public function edit(Request $request){
+        $request->validate([
+            'num'=>'integer',
+            'price'=>'integer|nullable',
+        ]);
+
         $stock = Stockitem::where('id', $request->edit_id)->first();
+        $stock->stock_num = $request->num;
         $stock->price = $request->price;
         $stock->place = $request->place;
         $stock->memo = $request->memo;
@@ -36,6 +42,10 @@ class StockitemsController extends Controller
         return redirect()->route('order_receive::stockitems.index');
     }
 
+    public function test(Request $request){
+
+        return $request;
+    }
     public function download(){
         $itemborders = Itemborder::get()->toArray();
         return \Excel::create('itemborder', function($excel) use ($itemborders) {

@@ -48,26 +48,31 @@
                             <td><form method="PUT" action="{{route('order_receive::stockitems.select')}}">
                                 <button name="edit_id" value="{{$item->id}}" type="submit" class="btn btn-primary btn-join">編集</button>
                             </form></td>
+                            @else
+                            <td><input type="text" id="key_param" value="{{$item->parent_sku}}" disabled="disabled"></td>
+                            <td><input type="text" name="edit_param" id="num" value="{{$item->stock_num}}"></td>
+                            <td><input type="text" name="edit_param" id="price" value="{{$item->price}}"></td>
+                            <td><input type="text" name="edit_param" id="place" value="{{$item->place}}"></td>
+                            <td><input type="text" name="edit_param" id="memo" value="{{$item->memo}}"></td>
+
+
+
+                            <td>
+                                <input type="button" class="btn btn-join btn-primary" id="edit_confirm" value="確定">
+                                <a href="{{route('order_receive::stockitems.index')}}"><button class="btn btn-join">キャンセル</button></a>
+
+                                <input type="hidden" name="base_param" id="num" value="{{$item->stock_num}}">
+                                <input type="hidden" name="base_param" id="price" value="{{$item->price}}">
+                                <input type="hidden" name="base_param" id="place" value="{{$item->place}}">
+                                <input type="hidden" name="base_param" id="memo" value="{{$item->memo}}">
+                                <input type="hidden" id="endpoint" value="edit">                                
+
+                            </td>
+                            @endif
                         </tr>
-                        @endif
                         @endforeach
                     </table>
-                    @if($edit_id!=-1)
-                    <div class="alert alert-danger">
-                        <p>編集部分</p>
-                        <form method="PUT" action="{{route('order_receive::stockitems.edit')}}">
-                            {{$edit_data->parent_sku}}
-                            <p>在庫数量: <input type="text" name="stock_num" value="{{$edit_data->stock_num}}" ></p>
-                            <p>仕入値段: <input type="text" name="price" value="{{$edit_data->price}}"></p>
-                            <p>置き場所: <input type="text" name="place" value="{{$edit_data->place}}"></p>
-                            <p>メモ項目: <input type="text" name="memo" value="{{$edit_data->memo}}"></p>
-
-                            <button name="edit_id" value="{{$edit_id}}" type="submit" class="btn btn-danger btn-join">確定</button>
-                        </form>
-                        <a href="{{route('order_receive::stockitems.index')}}"><button>キャンセル</button></a>
-                    </div>
-                    @endif
-
+                </div>
             </div>
         </div>
     </div>
