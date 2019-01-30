@@ -24,9 +24,11 @@ class WorkController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function index(){
-        //return "hello world";
         return view('stock_work.work');
-        //return view('work.work', compact('box_name','dealing_items'));
+    }
+
+    public function recommend(Request $request){
+        return $request;
     }
 
 }
