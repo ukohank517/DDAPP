@@ -65,7 +65,7 @@
                                 <input type="hidden" name="base_param" id="price" value="{{$item->price}}">
                                 <input type="hidden" name="base_param" id="place" value="{{$item->place}}">
                                 <input type="hidden" name="base_param" id="memo" value="{{$item->memo}}">
-                                <input type="hidden" id="endpoint" value="edit">                                
+                                <input type="hidden" id="endpoint" value="edit">
 
                             </td>
                             @endif
