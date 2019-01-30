@@ -73,9 +73,11 @@
     </nav>
     <!-- ナビゲーション -->
     <div class="box">
-        <a href="{{ route('admin::ordersheets') }}" class="btn-menu">業務管理DB</a>
-        <a href="{{ route('admin::skutransfers') }}" class="btn-menu">SKU互換DB</a>
-        <a href="{{ route('admin::zonecodes') }}" class="btn-menu">地代コードDB</a>
+        <ul id="flip2" class="dropmenu">
+            <li><a href="{{ route('admin::ordersheets') }}">業務管理DB</a></li>
+            <li><a href="{{ route('admin::skutransfers') }}">SKU互換DB</a></li>
+            <li><a href="{{ route('admin::zonecodes') }}">地代コードDB</a></li>
+        </ul>
     </div>
 
     <main class="py-4">
