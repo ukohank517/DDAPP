@@ -85,3 +85,7 @@ Route::group(['prefix' => 'order_receive', 'middleware'=>['auth', 'can:user-high
     Route::get('stockitems/select', 'StockitemsController@select')->name('stockitems.select');
     Route::get('stockitems/edit', 'StockitemsController@edit')->name('stockitems.edit');
 });
+
+Route::group(['prefix' => 'stock_work', 'middleware'=>['auth', 'can:user-higher'], 'namespace' => 'Stock_work', 'as' => 'stock_work::'], function(){
+    Route::get('work', 'WorkController@index')->name('work');
+});

@@ -29,7 +29,7 @@
                         <a href="{{ route('order_receive::info') }}" class="spin-btn">発注 & 入荷</a>
                         @endcan
                         @can('user-higher')
-                        <a href="#" class="spin-btn">3F作業</a>
+                        <a href="{{ route('stock_work::work') }}" class="spin-btn">3F作業</a>
                         <a href="{{ route('work::work') }}" class="spin-btn">4F作業へ</a>
                         @endcan
                     </ul>
