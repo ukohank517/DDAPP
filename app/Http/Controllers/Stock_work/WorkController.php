@@ -28,6 +28,15 @@ class WorkController extends Controller
     }
 
     public function recommend(Request $request){
+        $zero_ignore = $request->zero_ignore;
+        $former_sku = $request->former_sku;
+
+        if($zero_ignore == true){
+            //zero無視処理
+        }
+
+
+
         return $request;
     }
 

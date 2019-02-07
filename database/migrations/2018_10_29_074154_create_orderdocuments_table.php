@@ -21,10 +21,11 @@ class CreateOrderdocumentsTable extends Migration
             $table->string('parent_num');
             $table->string('supplier')->nullable();
             $table->integer('price')->nullable();
+            $table->string('store_place'); // 在庫、もしくはその他の倉庫
             $table->boolean('done');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
