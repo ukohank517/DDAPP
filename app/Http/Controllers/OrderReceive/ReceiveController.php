@@ -110,11 +110,14 @@ class ReceiveController extends Controller
         $orderdocuments = Orderdocument::where('doc_id', $request->doc_id)->get();
 
         foreach($orderdocuments as $item){
-            $stock = Stockitem::firstOrCreate([
-                'parent_sku' => $item->parent_sku,
-            ]);
-            $stock->stock_num = $stock->stock_num + $item->parent_num;
-            $stock->save();
+            if($item->store_place=="三"){
+                $stock = Stockitem::firstOrCreate([
+                    'parent_sku' => $item->parent_sku,
+                ]);
+                $stock->stock_num = $stock->stock_num + $item->parent_num;
+                $stock->save();
+            }
+            
             $item->done = true;
             $item->save();
         }

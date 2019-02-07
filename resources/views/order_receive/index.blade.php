@@ -89,10 +89,10 @@
                 <li><a href="#">新規設定</a></li>
             </ul>
         </li>
-        <li><a href="#">発注関連</a>
+        <li><a href="#">発注書更新</a>
             <ul>
                 <li><a href="{{ route('order_receive::orderdocuments.index') }}">発注書追加</a></li>
-                <li><a href="{{ route('order_receive::orderdocuments.confirm') }}">発注書確認</a></li>
+                <li><a href="{{ route('order_receive::orderdocuments.confirm') }}">発注書修正</a></li>
             </ul>
         </li>
         <li><a href="#">受注関連</a>
