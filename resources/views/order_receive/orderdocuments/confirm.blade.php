@@ -35,13 +35,14 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th width="15%">order_date</th>
-                                    <th width="15%">doc_id</th>
-                                    <th width="15%">親sku</th>
-                                    <th width="15%">注文数</th>
-                                    <th width="15%">仕入れ先</th>
-                                    <th width="15%">仕入れ値段</th>
-                                    <th width="15%">行編集</th>
+                                    <th width="10%">order_date</th>
+                                    <th width="10%">doc_id</th>
+                                    <th width="10%">親sku</th>
+                                    <th width="10%">注文数</th>
+                                    <th width="10%">仕入れ先</th>
+                                    <th width="10%">仕入れ値段</th>
+                                    <th width="10%">倉庫</th>
+                                    <th width="10%">行編集</th>
                                 </tr>
                             </thead>
                             @foreach($orderdocuments as $item)
@@ -52,6 +53,7 @@
                                 <td>{{ $item->parent_num }}</td>
                                 <td>{{ $item->supplier }}</td>
                                 <td>{{ $item->price }}</td>
+                                <td>{{ $item->store_place }}</td>
 
                                 <td>
                                     <form method="PUT" action="#" >

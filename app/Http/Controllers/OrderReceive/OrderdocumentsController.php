@@ -82,6 +82,7 @@ class OrderdocumentsController extends Controller
                         'parent_num' => $row['parent_num'],
                         'supplier' => $row['supplier'],
                         'price' => $row['price'],
+                        'store_place' => $row['store_place'],
                         'done' => false,
                     ],[
                     ]);
@@ -97,7 +98,7 @@ class OrderdocumentsController extends Controller
             return redirect()->route('order_receive::orderdocuments.index');
         }
         catch(\Exception $e){
-            \Session::flash('e_flash_message', '更新時エラーが発生しました');
+            \Session::flash('e_flash_message', $e);
             return redirect()->route('order_receive::orderdocuments.index');
         }
 
