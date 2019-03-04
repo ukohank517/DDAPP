@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminata\Support\Facades\Auth;
 use DDApp\Http\Controllers\Controller;
 use DDApp\Model\OrderReceive\Orderdocument;
+use DDApp\Model\OrderReceive\Itemrelation;
 use DDApp\Model\OrderReceive\Stockitem;
 use Excel;
 
@@ -39,7 +40,13 @@ class ReceiveController extends Controller
             'search_num'=>'integer',
         ]);
 
-        $search_sku = $request->search_sku;
+
+// TODO searchsku をjanから検索
+        $search_jan = $request->search_sku;
+        $item = Itemrelation::where('child_jan', $search_jan)->first();
+
+        if($item != null) $search_sku = $item->parent_sku;
+        else $search_sku = null;
         $search_num = $request->search_num;
         $search_doc = $request->search_doc;
 
@@ -117,7 +124,7 @@ class ReceiveController extends Controller
                 $stock->stock_num = $stock->stock_num + $item->parent_num;
                 $stock->save();
             }
-            
+
             $item->done = true;
             $item->save();
         }
