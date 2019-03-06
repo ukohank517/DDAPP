@@ -19,6 +19,7 @@ class Orderdocument extends Model
         'price',
         'warehouse',
         'product_place',
+        'memo',
         'done'
     ];
 }

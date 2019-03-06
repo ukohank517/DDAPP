@@ -71,13 +71,10 @@ class OrderdocumentsController extends Controller
             $doc_id = $request->doc_id;
             $order_date = $request->order_date;
 
-            if(count($rows)){
+                if(count($rows)){
                 foreach ($rows as $row) {
-                    if($row['parent_num'] == NULL) continue;
                     if($row['parent_sku'] == NULL) continue;
-                    $product_place = $row['product_place'];
-                    $formeritem = Stockitem::where('parent_sku', $row['parent_sku'])->first();
-                    if($formeritem != null) $product_place = $formeritem->place;
+                    if($row['parent_num'] == NULL) $row['parent_num'] = 0;
 
                     $item = Orderdocument::firstOrCreate([
                         'doc_id' => $doc_id,
@@ -88,6 +85,7 @@ class OrderdocumentsController extends Controller
                         'price' => $row['price'],
                         'warehouse' => $row['warehouse'],
                         'product_place' => $row['product_place'],
+                        'memo'=>$row['memo'],
                         'done' => false,
                     ],[
                     ]);

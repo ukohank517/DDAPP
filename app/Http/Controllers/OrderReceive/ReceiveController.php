@@ -116,12 +116,19 @@ class ReceiveController extends Controller
         $orderdocuments = Orderdocument::where('doc_id', $request->doc_id)->get();
 
         foreach($orderdocuments as $item){
-            if($item->warehouse=="三"){
+            if($item->warehouse=="M"){
                 $stock = Stockitem::firstOrCreate([
                     'parent_sku' => $item->parent_sku,
                 ]);
                 $stock->stock_num = $stock->stock_num + $item->parent_num;
                 $stock->place = $item->product_place;
+
+                $formeritem = Stockitem::where('parent_sku', $item->parent_sku)->first();
+                if($formeritem == null){
+                    $stock->place = $item->product_place;
+                    $stock->price = $item->price;
+                }
+
                 $stock->save();
             }
 

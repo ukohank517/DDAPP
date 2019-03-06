@@ -23,6 +23,7 @@ class CreateOrderdocumentsTable extends Migration
             $table->integer('price')->nullable();
             $table->string('warehouse'); // 在庫、もしくはその他の倉庫
             $table->string('product_place')->nullable(); // 置き場所、初回のみ使用
+            $table->string('memo')->nullable();
             $table->boolean('done');
         });
     }
