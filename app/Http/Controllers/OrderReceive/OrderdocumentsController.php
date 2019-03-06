@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminata\Support\Facades\Auth;
 use DDApp\Http\Controllers\Controller;
 use DDApp\Model\OrderReceive\Orderdocument;
+use DDApp\Model\OrderReceive\Stockitem;
 use Excel;
 
 class OrderdocumentsController extends Controller
@@ -74,18 +75,23 @@ class OrderdocumentsController extends Controller
                 foreach ($rows as $row) {
                     if($row['parent_num'] == NULL) continue;
                     if($row['parent_sku'] == NULL) continue;
+                    $product_place = $row['product_place'];
+                    $formeritem = Stockitem::where('parent_sku', $row['parent_sku'])->first();
+                    if($formeritem != null) $product_place = $formeritem->place;
 
                     $item = Orderdocument::firstOrCreate([
                         'doc_id' => $doc_id,
                         'order_date' => $order_date,
-                        'parent_sku' => $row ['parent_sku'],
+                        'parent_sku' => $row['parent_sku'],
                         'parent_num' => $row['parent_num'],
                         'supplier' => $row['supplier'],
                         'price' => $row['price'],
-                        'store_place' => $row['store_place'],
+                        'warehouse' => $row['warehouse'],
+                        'product_place' => $row['product_place'],
                         'done' => false,
                     ],[
                     ]);
+
                     $items[] = $item;
                     continue;
                 }

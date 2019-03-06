@@ -10,7 +10,11 @@
                 <div class="alert alert-success">SKU: 【{{ $former_sku }}】</div>
                 <div class="card-body">
 
-<p>{{$ordersheets}}</p>
+<p>
+    @foreach ($ordersheets as $item)
+    <p>{{$item}}</p>
+    @endforeach
+</p>
 
 
                     <form atcion="{{route('stock_work::work.recommend')}}">
@@ -21,7 +25,6 @@
                 </div>
             </div>
         </div>
-
 
 
     </div>

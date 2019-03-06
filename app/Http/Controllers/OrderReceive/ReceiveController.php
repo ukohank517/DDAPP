@@ -41,7 +41,6 @@ class ReceiveController extends Controller
         ]);
 
 
-// TODO searchsku をjanから検索
         $search_jan = $request->search_sku;
         $item = Itemrelation::where('child_jan', $search_jan)->first();
 
@@ -117,11 +116,12 @@ class ReceiveController extends Controller
         $orderdocuments = Orderdocument::where('doc_id', $request->doc_id)->get();
 
         foreach($orderdocuments as $item){
-            if($item->store_place=="三"){
+            if($item->warehouse=="三"){
                 $stock = Stockitem::firstOrCreate([
                     'parent_sku' => $item->parent_sku,
                 ]);
                 $stock->stock_num = $stock->stock_num + $item->parent_num;
+                $stock->place = $item->product_place;
                 $stock->save();
             }
 

@@ -17,7 +17,8 @@ class Orderdocument extends Model
         'price',
         'supplier',
         'price',
-        'store_place',
+        'warehouse',
+        'product_place',
         'done'
     ];
 }

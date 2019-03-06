@@ -37,7 +37,7 @@ class WorkController extends Controller
         $zero_ignore = $request->zero_ignore;
         $former_sku = $request->former_sku;
 
-        $ordersheets = Ordersheet::where('stock_stat', ['在庫'])->get();
+        $ordersheets = Ordersheet::where('stock_stat', ['在庫'])->whereNull('box')->get();
 
         $skulists = array();
 
