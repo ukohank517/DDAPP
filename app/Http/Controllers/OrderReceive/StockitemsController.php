@@ -10,10 +10,16 @@ use Excel;
 
 class StockitemsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $stockitems = Stockitem::paginate(15);
-        $edit_id = -1;
+        if($request->search_sku == null){
+            $stockitems = Stockitem::paginate(15);
+            $edit_id = -1;
+
+        }else{
+            $stockitems = Stockitem::where('parent_sku', $request->search_sku)->paginate(15);
+            $edit_id = -1;
+        }
         return view('order_receive.stockitems.index', compact('stockitems', 'edit_id'));
     }
 

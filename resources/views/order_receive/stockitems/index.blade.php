@@ -7,6 +7,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><font size="7">在庫管理</font></div>
 
+                <hr>
+                <form action="#">
+                    <input type="text" name="search_sku" placeholder="検索SKU" required>
+                    <input type="submit" value="検索">
+                </form>
+                <hr>
+
                 @if($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -46,6 +53,8 @@
                             <td>{{$item->place}}</td>
                             <td>{{$item->memo}}</td>
                             <td><form method="PUT" action="{{route('order_receive::stockitems.select')}}">
+                                <?php $pageidx = floor(($item->id -1) / 15)+1; ?>
+                                <input type="hidden" name="page" value="{{$pageidx}}">
                                 <button name="edit_id" value="{{$item->id}}" type="submit" class="btn btn-primary btn-join">編集</button>
                             </form></td>
                             @else

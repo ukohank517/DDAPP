@@ -13,8 +13,23 @@ class OrderdocumentsController extends Controller
 {
     public function index()
     {
-        $orderdocuments = Orderdocument::paginate(15);
-        return view('order_receive.orderdocuments.upload', compact('orderdocuments'));
+        \Session::forget('detail_flag');
+        $items = Orderdocument::all();
+        $docids = [];
+        $ids = [];
+        foreach($items as $item){
+            if(!in_array($item->doc_id, $docids)){
+                $docids[] = $item->doc_id;
+                $ids[] = $item->id;
+            }
+        }
+
+        $query = Orderdocument::query();
+        $query->wherein('id', $ids);
+        $query->orderBy('id', 'desc');
+        $orderdocuments = $query->paginate(15);
+
+        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids'));
     }
 
 
@@ -117,6 +132,43 @@ class OrderdocumentsController extends Controller
             });
         })->download('xlsx');
     }
+    public function detail(Request $request){
+        $search_doc = $request->search_doc;
+
+        $orderdocuments = Orderdocument::all();
+
+        $items = [];
+        foreach($orderdocuments as $item){
+            if(in_array($item->doc_id, $search_doc)){
+                $items[] = $item;
+            }
+        }
+
+        $docids = [];
+        $ids = [];
+        foreach($items as $item){
+            if(!in_array($item->doc_id, $docids)){
+                $docids[] = $item->doc_id;
+                $ids[] = $item->id;
+            }
+
+        }
+
+        $query = Orderdocument::query();
+        $query->wherein('id', $ids);
+        $orderdocuments = $query->paginate(15);
+
+        $search_doc = $request->doc_id;
+        $query = Orderdocument::query();
+        $query->where('doc_id', $search_doc)->orderBy('id');
+        $detailitems = $query->paginate(15);
+
+        \Session::flash('detail_flag',$search_doc);
+        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids', 'detailitems'));
+
+    }
+
+
 
     public function confirm(){
         $orderdocuments = Orderdocument::paginate(15);

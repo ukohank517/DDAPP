@@ -19,7 +19,7 @@
 
                 <form action="{{action('OrderReceive\ReceiveController@research')}}" >
                     <input type="text" name="search_sku" placeholder="検索SKU" required>
-                    <input type="text" name="search_num" placeholder="個数" required>
+                    <input type="text" name="search_num" placeholder="個数" >
 
                     @if(count($docids) != 0)
                     @foreach($docids as $docid)
@@ -37,6 +37,7 @@
                             <tr>
                                 <th>注文番号</th>
                                 <th>注文日付</th>
+                                <th>仕入れ先</th>
                                 <th>処理</th>
                             </tr>
                         </thread>
@@ -45,6 +46,7 @@
                         <tr>
                             <td>{{ $item->doc_id }}</td>
                             <td>{{ $item->order_date }}</td>
+                            <td>{{ $item->supplier }}</td>
                             <td>
 
 

@@ -37,7 +37,7 @@ class ReceiveController extends Controller
         \Session::forget('detail_flag');
         $request->validate([
             'search_sku'=>'string',
-            'search_num'=>'integer',
+            'search_num'=>'integer|nullable',
         ]);
 
 
@@ -61,10 +61,19 @@ class ReceiveController extends Controller
         $docids = [];
         $ids = [];
         foreach($items as $item){
-            if(($item->parent_sku == $search_sku)&&($item->parent_num == $search_num)){
-                if(!in_array($item->doc_id, $docids)){
-                    $docids[] = $item->doc_id;
-                    $ids[] = $item->id;
+            if($search_num != null){
+                if(($item->parent_sku == $search_sku)&&($item->parent_num == $search_num)){
+                    if(!in_array($item->doc_id, $docids)){
+                        $docids[] = $item->doc_id;
+                        $ids[] = $item->id;
+                    }
+                }
+            }else{
+                if(($item->parent_sku == $search_sku)){
+                    if(!in_array($item->doc_id, $docids)){
+                        $docids[] = $item->doc_id;
+                        $ids[] = $item->id;
+                    }
                 }
             }
         }
@@ -101,12 +110,12 @@ class ReceiveController extends Controller
 
         $query = Orderdocument::query();
         $query->wherein('id', $ids);
-        $orderdocuments = $query->paginate(15);
+        $orderdocuments = $query->paginate(40);
 
         $search_doc = $request->doc_id;
         $query = Orderdocument::query();
         $query->where('doc_id', $search_doc)->orderBy('id');
-        $detailitems = $query->paginate(15);
+        $detailitems = $query->paginate(40);
 
         \Session::flash('detail_flag',$search_doc);
         return view('order_receive.receive.documentsearch', compact('orderdocuments', 'docids', 'detailitems'));

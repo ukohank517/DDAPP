@@ -32,8 +32,8 @@
                             'files' => true
                             ]) !!}
 
-                            <div>(ダテなう)発注書ID　<input name="doc_id" placeholder="適当でええで" required></div>
-                            <div>(ダテだう)発注日：　<input type="date" name="order_date"  required></div>
+                            <div>発注書ID　<input name="doc_id" placeholder="ID" required></div>
+                            <div>発注日：　<input type="date" name="order_date"  required></div>
                             <div class="row">
                                 <div class="col-md-4">
                                     {!! Form::file('csv_file', null, ['class' => 'form-control']) !!}
@@ -51,6 +51,67 @@
 
                     </div>
                 </div>
+
+                <hr>
+                <div>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thread>
+                            <tr>
+                                <th>注文番号</th>
+                                <th>注文日付</th>
+                                <th>処理</th>
+                            </tr>
+                        </thread>
+                        @foreach($orderdocuments as $item)
+                        <tr>
+                            <td>{{ $item->doc_id }}</td>
+                            <td>{{ $item->order_date }}</td>
+                            <td>
+                                <form method="PUT" action="{{route('order_receive::orderdocuments.detail')}}">
+                                    @if(count($docids) != 0)
+                                    @foreach($docids as $docid)
+                                    <input type="hidden" name = "search_doc[]" value="{{$docid}}">
+                                    @endforeach
+                                    @endif
+                                    <button name="doc_id" value="{{$item->doc_id}}" type="submit" class="btn btn-defalut btn-join">詳細</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        @endforeach
+                        <tr>
+                    </table>
+                </div>
+
+                @if(Session::has('detail_flag'))
+                <div class="alert alert-success">
+                    発注書ID: [{{Session::get('detail_flag')}}]
+                    <form  method="PUT" action="#">
+                            <button name="doc_id" value="{{Session::get('detail_flag')}}" type="submit" class="btn btn-danger btn-join">発注書削除</button>
+                    </form>
+                </div>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>親sku</th>
+                                <th>注文数</th>
+                                <th>仕入れ先</th>
+                                <th>仕入れ値段</th>
+                            </tr>
+                        </thead>
+                        @foreach($detailitems as $item)
+                        <tr>
+                            <td>{{$item->parent_sku}}</td>
+                            <td>{{$item->parent_num}}</td>
+                            <td>{{$item->supplier}}</td>
+                            <td>{{$item->price}}</td>
+                        </tr>
+                        @endforeach
+                    </table>
+
+                </div>
+                <hr>
+                @endif
 
 
 
