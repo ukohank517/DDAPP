@@ -13,8 +13,11 @@
   transition: .6s;
 }
 
+
+/*
 .spin-btn:hover{
   -webkit-transform: rotateY(360deg);
   -ms-transform: rotateY(360deg);
   transform: rotateY(360deg);
 }
+*/
