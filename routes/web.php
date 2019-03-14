@@ -92,4 +92,7 @@ Route::group(['prefix' => 'stock_work', 'middleware'=>['auth', 'can:user-higher'
     Route::get('work/deal_and_recommend', 'WorkController@deal_and_recommend')->name('work.deal_and_recommend');
     Route::get('work/print', 'WorkController@print')->name('work.print');
     Route::get('work/renew_box', 'WorkController@renew_box')->name('work.renew_box');
+
+    Route::get('work_by_line', 'WorkController@work_by_line')->name('work_by_line');
+    
 });

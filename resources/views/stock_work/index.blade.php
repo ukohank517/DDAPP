@@ -84,7 +84,7 @@
 <div class="box">
     <ul id="flip2" class="dropmenu">
         <li><a href=" {{route('stock_work::work')}} ">通常提案処理</a></li>
-        <li><a href="#">行指定処理</a></li>
+        <li><a href=" {{route('stock_work::work_by_line')}} ">行指定処理</a></li>
     </ul>
 </div>
 

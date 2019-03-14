@@ -129,6 +129,11 @@ class WorkController extends Controller
     }
 
 
+    public function work_by_line(Request $request){
+        return view('stock_work.deal_by_lines');
+    }
+
+
     public static function make_greenlabel($box_name){
         $filename = "pic/greenlabel/".$box_name.".pdf";
         \File::delete($filename);
