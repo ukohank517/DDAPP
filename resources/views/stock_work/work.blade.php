@@ -11,12 +11,32 @@
                     <form action="{{route('stock_work::work.deal_and_recommend')}}">
                         <p><input type ="checkbox" name="zero_ignore" value={{$zero_ignore}}>　0在庫無視</p>
                         <p><input type ="hidden" name="former_sku" value={{$former_sku}}></p>
-                        <p><input type="submit" value="システムより提案"></p>
+                        @if(Session::has('print_flag'))
+                        <input type="submit" class="btn btn-primary btn-join" disabled="true" value="システムより提案">
+
+                        @else
+                        <input type="submit" class="btn btn-primary btn-join" value="システムより提案">
+                        @endif
                     </form>
                 </div>
 
-                <div class="card-header"><center>BOX中身一覧</center></div>
+                <div class="card-header"><center>BOX【{{$box_name}}】中身一覧</center></div>
+                @if (Session::has('print_flag'))
+                <p><a href="../pic/greenlabel/{{$box_name}}.pdf" target="_blank"> greenlabel[box: {{$box_name}}] </a></p>
+                <p><a href="../pic/invoice/{{$box_name}}.pdf" target=("_blank")> invoice[box: {{$box_name}}] </a></p>
+
+                <form action = "{{route('stock_work::work.renew_box')}}">
+                    <input type="hidden" name="to_url" value=0>
+                    <input type="submit" class="btn btn-default btn-join" value = "BOX新規">
+                </form>
+
+                @else
                 <div class="card-body">
+                    <form action="{{route('stock_work::work.print')}}">
+                        <input type="hidden" name="to_url" value=0>
+                        <input type="submit" class="btn btn-default btn-join" value="印刷">
+                    </form>
+
                     <div>
                         <table class="table table-striped table-bordered table-hover">
                             <thread>
@@ -45,6 +65,7 @@
 
                 </div>
 
+                @endif
             </div>
         </div>
 

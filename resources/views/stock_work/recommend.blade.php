@@ -69,14 +69,44 @@
                             @else
                             <p><input type="hidden" name="zero_ignore" value={{$zero_ignore}}></p>
                             <p><input type="hidden" name="former_sku" value={{$former_sku}}></p>
+                            @if (Session::has('print_flag'))
+                            <input type="submit" class="btn btn-primary btn-join" disabled="true" value="処理して次へ">
+                            @else
                             <input type="submit" class="btn btn-primary btn-join" value="処理して次へ">
+                            @endif
                             @endif
                         </form>
                     </div>
                 </div>
 
-                <div class="card-header"><center>BOX中身一覧</center></div>
+                <div class="card-header"><center>BOX【{{$box_name}}】中身一覧</center></div>
+                @if (Session::has('print_flag'))
+                <p><a href="../../pic/greenlabel/{{$box_name}}.pdf" target="_blank"> greenlabel[box: {{$box_name}}] </a></p>
+                <p><a href="../../pic/invoice/{{$box_name}}.pdf" target=("_blank")> invoice[box: {{$box_name}}] </a></p>
+
+                <form action = "{{route('stock_work::work.renew_box')}}">
+                    <input type="hidden" name="zero_ignore" value={{$zero_ignore}}>
+                    <?php
+                    if(isset($_GET['former_sku'])) { $sku = $_GET['former_sku']; }
+                    else $sku = null;
+                    ?>
+                    <input type="hidden" name="former_sku" value={{$sku}}>
+                    <input type="hidden" name="to_url" value=1>
+                    <input type="submit" class="btn btn-default btn-join" value = "BOX新規">
+                </form>
+
+                @else
                 <div class="card-body">
+                    <form action = "{{route('stock_work::work.print')}}">
+                        <input type="hidden" name="zero_ignore" value={{$zero_ignore}}>
+                        <?php
+                        if(isset($_GET['former_sku'])) { $sku = $_GET['former_sku']; }
+                        else $sku = null;
+                        ?>
+                        <input type="hidden" name="former_sku" value={{$sku}}>
+                        <input type="hidden" name="to_url" value=1>
+                        <input type="submit" class="btn btn-default btn-join" value = "印刷">
+                    </form>
                     <div>
                         <table class="table table-striped table-bordered table-hover">
                             <thread>
@@ -104,7 +134,7 @@
                     </div>
 
                 </div>
-
+                @endif
             </div>
         </div>
 
