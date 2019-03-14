@@ -89,5 +89,5 @@ Route::group(['prefix' => 'order_receive', 'middleware'=>['auth', 'can:user-high
 
 Route::group(['prefix' => 'stock_work', 'middleware'=>['auth', 'can:user-higher'], 'namespace' => 'Stock_work', 'as' => 'stock_work::'], function(){
     Route::get('work', 'WorkController@index')->name('work');
-    Route::get('work/recommend', 'WorkController@recommend')->name('work.recommend');
+    Route::get('work/deal_and_recommend', 'WorkController@deal_and_recommend')->name('work.deal_and_recommend');
 });
