@@ -74,6 +74,7 @@ class WorkController extends Controller
                     $hit_items[] = $hit_item;
                 }
                 //これらをすべてboxに入れておく、idx+1
+                // TODO: 商品数を引く
                 $selfidx = $selfidx + 1;
                 foreach($hit_items as $item){
                     if($item->id_in_box != 0) continue;
@@ -128,7 +129,7 @@ class WorkController extends Controller
         }
     }
 
-
+    // TODO:
     public function work_by_line(Request $request){
         return view('stock_work.deal_by_lines');
     }
