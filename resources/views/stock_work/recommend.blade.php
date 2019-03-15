@@ -2,9 +2,11 @@
 
 @section('content')
 
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8" >
+            <script src="{{ asset('js/stock_work/recommend.js') }}" defer></script>
             <div class="card">
                 <div class="card-header">提案ページ</div>
                     @if(strcmp($former_sku, "FINISH")!=0)
@@ -22,6 +24,9 @@
 
                 <div class="card-body">
                     <div>
+                        <div>
+                            <input style="transform:scale(2); " type="checkbox" name="allcheck" onclick="allCheck()">　一括選択
+                        </div>
                         <form action={{route('stock_work::work.deal_and_recommend')}} method="get">
                             <div>
                                 @foreach($ordersheets as $items)
