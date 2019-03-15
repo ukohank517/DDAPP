@@ -8,17 +8,24 @@
         <div class="col-md-8" >
             <script src="{{ asset('js/stock_work/recommend.js') }}" defer></script>
             <div class="card">
-                <div class="card-header">提案ページ</div>
+                <div class="card-header">提案ページ
+                    <a style="float: right;" class="btn btn-primary btn-join"href="{{route('stock_work::work')}}">TOPへ戻る</a>
+                </div>
+
                     @if(strcmp($former_sku, "FINISH")!=0)
-                    <div class="alert alert-success">
-                    <center>SKU: 【{{ $former_sku }}】</center>
-                        @if(count($skuinfo) == 0)
+                    @if(count($skuinfo) == 0)
+                    <div class="alert alert-danger">
+                        <center>SKU: 【{{ $former_sku }}】</center>
                         <center>??????????????????????情報なし??????????????????????</center>
-                        @endif
+                    </div>
+                    @else
+                    <div class="alert alert-success">
+                        <center>SKU: 【{{ $former_sku }}】</center>
                         @foreach($skuinfo as $item)
                         <p>【{{$item->parent_sku}}】 × {{$item->parent_num}} ---------- {{$stocknums[$item->parent_sku]}}</p>
                         @endforeach
                     </div>
+                    @endif
                     @endif
 
 
