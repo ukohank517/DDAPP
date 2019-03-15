@@ -26,7 +26,7 @@
 
                         @can('admin-higher')
                         <a href="{{ route('admin::ordersheets') }}" class="spin-btn">作業DB管理</a>
-                        <a href="{{ route('order_receive::info') }}" class="spin-btn">発注 & 入荷</a>
+                        <a href="{{ route('order_receive::info') }}" class="spin-btn">在庫 & 受発注</a>
                         @endcan
                         @can('user-higher')
                         <a href="{{ route('stock_work::work') }}" class="spin-btn">3F作業</a>
