@@ -6,30 +6,6 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading"><font size="7">在庫管理</font></div>
-                <!-- 折り畳み展開ポインタ -->
-                <div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
-                    <a style="cursor:pointer;">　　　　　v　　　　　</a>
-                </div>
-                <!--// 折り畳み展開ポインタ -->
-
-
-                <script type="text/javascript">
-                function confirm_allnew(){
-                    window.confirm('更新すると今までのデータがすべて削除される。');
-                }
-            </script>
-
-
-
-                <!-- 折り畳まれ部分 -->
-                <div id="open" style="display:none;clear:both;">
-
-                <!--ここの部分が折りたたまれる＆展開される部分になります。
-                自由に記述してください。-->
-                <a href="{{route('order_receive::stockitems.all_renew')}}"><button class="btn btn-join" onClick="confirm_allnew()">在庫表一括更新</button></a>
-                </div>
-                <!--// 折り畳まれ部分 -->
-
 
                 <hr>
                 <form action="#">
@@ -53,6 +29,36 @@
                     {{Session::get('success_msg')}}
                 </div>
                 @endif
+
+
+
+
+
+
+                {!! Form::model($stockitems, [
+                    'url' => route('order_receive::stockitems.upload'),
+                    'method' => 'POST',
+                    'files' => true
+                ]) !!}
+                <div class="row">
+                    <div class="col-md-4">
+                        {!! Form::file('csv_file', null, ['class' => 'form-control']) !!}
+                    </div>
+
+                    <div class="col-md-8">
+                        {!! Form::submit('DB更新', ['class' => 'btn btn-primary']) !!}
+                        <!--
+                        {{ link_to_route('order_receive::stockitems.download', 'ダウンロード', null, ['class' => 'btn btn-default']) }}
+                        -->
+                    </div>
+                </div>
+                {!! Form::close() !!}
+
+
+
+
+
+
 
                 <div>
                     <table class="table table-striped table-bordered table-hover">

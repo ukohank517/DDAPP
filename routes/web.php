@@ -83,8 +83,11 @@ Route::group(['prefix' => 'order_receive', 'middleware'=>['auth', 'can:user-high
     Route::get('receive/receive', 'ReceiveController@receive')->name('receive.receive');
 
     Route::get('stockitems/index', 'StockitemsController@index')->name('stockitems.index');
+    Route::get('stockitems/all_renew', 'StockitemsController@all_renew')->name('stockitems.all_renew');
     Route::get('stockitems/select', 'StockitemsController@select')->name('stockitems.select');
     Route::get('stockitems/edit', 'StockitemsController@edit')->name('stockitems.edit');
+    Route::post('stockitems/upload', 'StockitemsController@upload')->name('stockitems.upload');
+    Route::get('stockitems/download', 'StockitemsController@download')->name('stockitems.download');
 });
 
 Route::group(['prefix' => 'stock_work', 'middleware'=>['auth', 'can:user-higher'], 'namespace' => 'Stock_work', 'as' => 'stock_work::'], function(){
@@ -94,5 +97,5 @@ Route::group(['prefix' => 'stock_work', 'middleware'=>['auth', 'can:user-higher'
     Route::get('work/renew_box', 'WorkController@renew_box')->name('work.renew_box');
 
     Route::get('work_by_line', 'WorkController@work_by_line')->name('work_by_line');
-    
+
 });

@@ -11,6 +11,7 @@ class Stockitem extends Model
 
     protected $fillable = [
         'parent_sku',
+        'name',
         'stock_num',
         'price',
         'place',
