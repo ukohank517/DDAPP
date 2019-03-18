@@ -8,6 +8,13 @@
         <div class="col-md-8" >
             <script src="{{ asset('js/stock_work/recommend.js') }}" defer></script>
             <div class="card">
+                <script type="text/javascript">
+                function alert_no_info(a){
+                    window.alert("SKU【"+a+"】に関する情報は見つかっていません。\n 報告してください。");
+                }
+                </script>
+
+
                 <div class="card-header">提案ページ
                     <a style="float: right;" class="btn btn-primary btn-join"href="{{route('stock_work::work')}}">TOPへ戻る</a>
                 </div>
@@ -17,12 +24,13 @@
                     <div class="alert alert-danger">
                         <center>SKU: 【{{ $former_sku }}】</center>
                         <center>??????????????????????情報なし??????????????????????</center>
+                        <script> alert_no_info("{{ $former_sku }}")</script>
                     </div>
                     @else
                     <div class="alert alert-success">
                         <center>SKU: 【{{ $former_sku }}】</center>
                         @foreach($skuinfo as $item)
-                        <p>【{{$item->parent_sku}}】 × {{$item->parent_num}} ---------- {{$stocknums[$item->parent_sku]}}</p>
+                        <p>【{{$item->parent_sku}} :: {{$stockinfo[$item->parent_sku]["name"]}}】 × {{$item->parent_num}}/{{$stockinfo[$item->parent_sku]["num"]}} ---------- {{$stockinfo[$item->parent_sku]["place"]}}</p>
                         @endforeach
                     </div>
                     @endif
@@ -67,7 +75,11 @@
                                         @endif
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->line }}</td>
+                                        @if(strcmp($item->sku, $former_sku) == 0)
+                                        <td bgcolor="pink">{{ $item->sku }}</td>
+                                        @else
                                         <td>{{ $item->sku }}</td>
+                                        @endif
                                         <td>{{ $item->aim_num }}</td>
                                         <td>{{ $item->order_id }}</td>
                                     </tr>

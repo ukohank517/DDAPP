@@ -39,10 +39,10 @@ class WorkController extends Controller
         $zero_ignore = "false";
         $former_sku = "";
         $skuinfo ="";
-        $stocknums = "";
+        $stockinfo = "";
         $selfitem = self::selfbox();
         $box_name = Param::where('param_name', 'floor_three_box_name')->first()->value;
-        return view('stock_work.work', compact('zero_ignore', 'former_sku', 'skuinfo', 'stocknums', 'selfitem', 'box_name'));
+        return view('stock_work.work', compact('zero_ignore', 'former_sku', 'skuinfo', 'stockinfo', 'selfitem', 'box_name'));
     }
 
 
@@ -55,7 +55,7 @@ class WorkController extends Controller
         $former_sku = $ans[1];
 
         $skuinfo = self::skuinfo($former_sku);
-        $stocknums = self::stocknum($skuinfo);
+        $stockinfo = self::stockinfo($skuinfo);
 
         $selfitem = self::selfbox();
         if(count($selfitem)==0)$selfidx = 0;
@@ -74,20 +74,48 @@ class WorkController extends Controller
                     $hit_items[] = $hit_item;
                 }
                 //これらをすべてboxに入れておく、idx+1
-                // TODO: 商品数を引く
                 $selfidx = $selfidx + 1;
                 foreach($hit_items as $item){
                     if($item->id_in_box != 0) continue;
                     $item->box = $box_name->value;
                     $item->id_in_box = $selfidx;
                     $item->save();
+
+                    // TODO: 商品数を引く
+                    if(strcmp($item->stock_stat,"在庫")==0){
+                        $itemrelations = Itemrelation::where("child_sku", $item->sku)->get();
+                        $procedure = array();
+                        $skulist = array();
+
+                        foreach($itemrelations as $i){
+                            if(in_array($i->parent_sku, $skulist)){
+                                continue;
+                            }else{
+                                $skulist[] = $i->parent_sku;
+                                $it["sku"] = $i->parent_sku;
+                                $it["num"] = $i->parent_num;
+                                $procedure[] = $it;
+                            }
+                        }
+
+                        foreach($procedure as $it){
+                            $i = Stockitem::where("parent_sku", $it["sku"])->first();
+                            $i->stock_num = $i->stock_num - $item->aim_num*$it["num"];
+                            $i->save();
+                        }
+
+
+                    }
+
                 }
+
+
             }
         }
 
         $selfitem = self::selfbox();
         $box_name = Param::where('param_name', 'floor_three_box_name')->first()->value;
-        return view('stock_work.recommend', compact('ordersheets', 'zero_ignore', 'former_sku', 'skuinfo', 'stocknums', 'box_name', 'selfitem'));
+        return view('stock_work.recommend', compact('ordersheets', 'zero_ignore', 'former_sku', 'skuinfo', 'stockinfo', 'box_name', 'selfitem'));
     }
 
     public function print(Request $request){
@@ -321,20 +349,54 @@ class WorkController extends Controller
 
     }
 
-    private static function stocknum($skuinfo){
+    private static function stockinfo($skuinfo){
         $ret = array();
         if($skuinfo == null) return null;
 
         foreach($skuinfo as $item){
             $stockitem = Stockitem::where('parent_sku', $item->parent_sku)->first();
             if($stockitem != null){
-                $ret[$item->parent_sku] = $stockitem->stock_num;
+                $it["num"] = $stockitem->stock_num;
+                $it["name"] = $stockitem->name;
+                $it["place"] = $stockitem->place;
             }else{
-                $ret[$item->parent_sku] = "no information";
+                $it["num"] = "no information";
+                $it["name"] = "noname";
+                $it["place"] = "not found";
+            }
+            $ret[$item->parent_sku] =$it;
+        }
+        return $ret;
+    }
+
+    private static function stockname($skuinfo){
+        $ret = array();
+        if($skuinfo == null) return null;
+
+        foreach($skuinfo as $item){
+            $stockitem = Stockitem::where('parent_sku', $item->parent_sku)->first();
+            if($stockitem != null){
+                $ret[$item->parent_sku] = $stockitem->name;
+            }else{
+                $ret[$item->parent_sku] = "noname";
             }
         }
         return $ret;
+    }
 
+    private static function stockplace($skuinfo){
+        $ret = array();
+        if($skuinfo == null) return null;
+
+        foreach($skuinfo as $item){
+            $stockitem = Stockitem::where('parent_sku', $item->parent_sku)->first();
+            if($stockitem != null){
+                $ret[$item->parent_sku] = $stockitem->place;
+            }else{
+                $ret[$item->parent_sku] = "not fonund";
+            }
+        }
+        return $ret;
     }
 
     private static function skuinfo($sku){
