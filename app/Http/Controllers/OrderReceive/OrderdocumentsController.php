@@ -29,7 +29,8 @@ class OrderdocumentsController extends Controller
         $query->orderBy('id', 'desc');
         $orderdocuments = $query->paginate(15);
 
-        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids'));
+        $edit_id = -1;
+        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids', 'edit_id'));
     }
 
 
@@ -132,6 +133,7 @@ class OrderdocumentsController extends Controller
             });
         })->download('xlsx');
     }
+
     public function detail(Request $request){
         $search_doc = $request->search_doc;
 
@@ -164,16 +166,98 @@ class OrderdocumentsController extends Controller
         $detailitems = $query->paginate(15);
 
         \Session::flash('detail_flag',$search_doc);
-        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids', 'detailitems'));
+        $edit_id=-1;
+        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids', 'detailitems', 'edit_id'));
 
     }
-
-
 
     public function select(Request $request){
-        return $request;
+
+        $search_doc = $request->search_doc;
+
+        $orderdocuments = Orderdocument::all();
+
+        $items = [];
+        foreach($orderdocuments as $item){
+            if(in_array($item->doc_id, $search_doc)){
+                $items[] = $item;
+            }
+        }
+
+        $docids = [];
+        $ids = [];
+        foreach($items as $item){
+            if(!in_array($item->doc_id, $docids)){
+                $docids[] = $item->doc_id;
+                $ids[] = $item->id;
+            }
+
+        }
+
+        $query = Orderdocument::query();
+        $query->wherein('id', $ids);
+        $orderdocuments = $query->paginate(15);
+
+        $search_doc = $request->doc_id;
+        $query = Orderdocument::query();
+        $query->where('doc_id', $search_doc)->orderBy('id');
+        $detailitems = $query->paginate(15);
+
+        \Session::flash('detail_flag',$search_doc);
+        $edit_id = $request->select_id;
+        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids', 'detailitems', 'edit_id'));
     }
+
+
+
+
     public function edit(Request $request){
-        return $request;
+        $orderdocument = Orderdocument::where('id', $request->select_id)->first();
+        $orderdocument->supplier = $request->supplier;
+        $orderdocument->price = $request->price;
+        $orderdocument->parent_num = $request->num;
+        $orderdocument->save();
+
+        \Session::flash('success_msg', '更新完了しました');
+
+
+
+
+
+        $search_doc = $request->search_doc;
+
+        $orderdocuments = Orderdocument::all();
+
+        $items = [];
+        foreach($orderdocuments as $item){
+            if(in_array($item->doc_id, $search_doc)){
+                $items[] = $item;
+            }
+        }
+
+        $docids = [];
+        $ids = [];
+        foreach($items as $item){
+            if(!in_array($item->doc_id, $docids)){
+                $docids[] = $item->doc_id;
+                $ids[] = $item->id;
+            }
+
+        }
+
+        $query = Orderdocument::query();
+        $query->wherein('id', $ids);
+        $orderdocuments = $query->paginate(15);
+
+        $search_doc = $request->doc_id;
+        $query = Orderdocument::query();
+        $query->where('doc_id', $search_doc)->orderBy('id');
+        $detailitems = $query->paginate(15);
+
+        \Session::flash('detail_flag',$search_doc);
+        $edit_id = $request->select_id;
+        return view('order_receive.orderdocuments.upload', compact('orderdocuments', 'docids', 'detailitems', 'edit_id'));
+
+
     }
 }

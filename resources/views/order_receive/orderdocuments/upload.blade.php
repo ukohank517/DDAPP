@@ -97,14 +97,53 @@
                                 <th>注文数</th>
                                 <th>仕入れ先</th>
                                 <th>仕入れ値段</th>
+                                <th>修正</th>
                             </tr>
                         </thead>
                         @foreach($detailitems as $item)
                         <tr>
-                            <td>{{$item->parent_sku}}</td>
-                            <td>{{$item->parent_num}}</td>
-                            <td>{{$item->supplier}}</td>
-                            <td>{{$item->price}}</td>
+                                @if($edit_id != $item->id)
+                                <td>{{$item->parent_sku}}</td>
+                                <td>{{$item->parent_num}}</td>
+                                <td>{{$item->supplier}}</td>
+                                <td>{{$item->price}}</td>
+                                <td>
+                                    <form method="PUT" action="{{route('order_receive::orderdocuments.select')}}">
+                                        @if(count($docids) != 0)
+                                        @foreach($docids as $docid)
+                                        <input type="hidden" name = "search_doc[]" value="{{$docid}}">
+                                        @endforeach
+                                        @endif
+                                        <input type="hidden" name="select_id" value="{{$item->id}}">
+                                        <button name="doc_id" value="{{$item->doc_id}}" type="submit" class="btn btn-primary btn-join">編集</button>
+                                    </form>
+                                </td>
+                                @else
+                                <td><input type="text" id="key_param"  value="{{$item->parent_sku}}" disabled="disabled"></td>
+                                <td><input type="text" name="edit_param" id="num" value="{{$item->parent_num}}"></td>
+                                <td><input type="text" name="edit_param" id="supplier" value="{{$item->supplier}}"></td>
+                                <td><input type="text" name="edit_param" id="price" value="{{$item->price}}"></td>
+                                <td>
+                                    <input type="button" class="btn btn-join btn-primary" id="edit_confirm" value="確定">
+                                    <input type="hidden" name="base_param" id="num" value="{{$item->parent_num}}">
+                                    <input type="hidden" name="base_param" id="supplier" value="{{$item->supplier}}">
+                                    <input type="hidden" name="base_param" id="price" value="{{$item->price}}">
+                                    <input type="hidden" id="endpoint" value="edit">
+
+                                    <form method="PUT" action="#">
+                                        @if(count($docids) != 0)
+                                        @foreach($docids as $docid)
+                                        <input type="hidden" name = "search_doc[]" value="{{$docid}}">
+                                        @endforeach
+                                        @endif
+                                        <button name="doc_id" value="{{$item->doc_id}}" type="submit" class="btn btn-join">キャンセル</button>
+                                    </form>
+                                </td>
+                                @endif
+
+
+
+
                         </tr>
                         @endforeach
                     </table>
