@@ -170,11 +170,6 @@ class OrderdocumentsController extends Controller
 
 
 
-    public function confirm(){
-        $orderdocuments = Orderdocument::paginate(15);
-        return view('order_receive.orderdocuments.confirm', compact('orderdocuments'));
-    }
-
     public function select(Request $request){
         return $request;
     }
