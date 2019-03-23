@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/edit_confirm.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -20,6 +21,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+
+
+
+
+
 </head>
 <body>
     <div id="app">
@@ -69,20 +75,46 @@
                     @endguest
                 </ul>
             </div>
-        </div>
-    </nav>
-    <!-- ナビゲーション -->
-    <div class="box">
-        <ul id="flip2" class="dropmenu">
-            <li><a href="{{ action('Work\WorkController@index') }}">業務ページ</a></li>
-            <li><a href="{{ action('Work\PrintController@index') }}">Box指定印刷</a></li>
-            <li><a href="{{ action('Work\PrintController@single_index') }}">単品処理</a></li>
-            <li><a href="{{ action('Work\ItemSearchController@index') }}">情報検索</a></li>
-        </ul>
-    </div>
-    <main class="py-4">
-        @yield('content')
-    </main>
+        </nav>
+
+
+
+
+
+<div class="box">
+    <ul id="flip2" class="dropmenu"><!-- http://weboook.blog22.fc2.com/blog-entry-408.html -->
+        <li><a href="#">レポート</a>
+            <ul>
+                <li><a href="#">デフォルト</a></li>
+                <li><a href="#">新規設定</a></li>
+            </ul>
+        </li>
+        <li><a href="#">発注書更新</a>
+            <ul>
+                <li><a href="{{ route('order_receive::orderdocuments.index') }}">発注書追加</a></li>
+            </ul>
+        </li>
+        <li><a href="#">受注関連</a>
+            <ul>
+                <li><a href="{{ route('order_receive::receive.index') }}">受注処理(発注書検索)</a></li>
+            </ul>
+        </li>
+        <li><a href="#">DB更新＆確認</a>
+            <ul>
+                <li><a href="{{ route('order_receive::itemrelations.index') }}">親子sku, JAN 関連</a></li>
+                <li><a href="{{ route('order_receive::itemborders.index') }}">判断基準</a></li>
+                <li><a href="{{ route('order_receive::stockitems.index') }}">在庫管理</a></li>
+            </ul>
+        </li>
+    </ul>
 </div>
+
+
+
+        <main class="py-4">
+            @yield('content')
+        </main>
+
+    </div>
 </body>
 </html>

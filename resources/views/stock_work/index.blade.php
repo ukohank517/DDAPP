@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/edit_confirm.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -20,6 +21,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+
+
+
+
+
 </head>
 <body>
     <div id="app">
@@ -69,20 +75,25 @@
                     @endguest
                 </ul>
             </div>
-        </div>
-    </nav>
-    <!-- ナビゲーション -->
-    <div class="box">
-        <ul id="flip2" class="dropmenu">
-            <li><a href="{{ action('Work\WorkController@index') }}">業務ページ</a></li>
-            <li><a href="{{ action('Work\PrintController@index') }}">Box指定印刷</a></li>
-            <li><a href="{{ action('Work\PrintController@single_index') }}">単品処理</a></li>
-            <li><a href="{{ action('Work\ItemSearchController@index') }}">情報検索</a></li>
-        </ul>
-    </div>
-    <main class="py-4">
-        @yield('content')
-    </main>
+        </nav>
+
+
+
+
+
+<div class="box">
+    <ul id="flip2" class="dropmenu">
+        <li><a href=" {{route('stock_work::work')}} ">通常提案処理</a></li>
+        <li><a href=" {{route('stock_work::work_by_line')}} ">行指定処理</a></li>
+    </ul>
 </div>
+
+
+
+        <main class="py-4">
+            @yield('content')
+        </main>
+
+    </div>
 </body>
 </html>
