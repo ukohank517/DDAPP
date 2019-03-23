@@ -42,10 +42,15 @@ class ReceiveController extends Controller
 
 
         $search_jan = $request->search_sku;
-        $item = Itemrelation::where('child_jan', $search_jan)->first();
+        $its = Itemrelation::where('child_jan', $search_jan)->get();
 
-        if($item != null) $search_sku = $item->parent_sku;
-        else $search_sku = null;
+        $search_skus = array();
+        if($its != null) {
+            foreach($its as $it){
+                $search_skus[] = $it->parent_sku;
+            }
+        }
+        else $search_skus = null;
         $search_num = $request->search_num;
         $search_doc = $request->search_doc;
 
@@ -60,23 +65,27 @@ class ReceiveController extends Controller
 
         $docids = [];
         $ids = [];
+
         foreach($items as $item){
-            if($search_num != null){
-                if(($item->parent_sku == $search_sku)&&($item->parent_num == $search_num)){
-                    if(!in_array($item->doc_id, $docids)){
-                        $docids[] = $item->doc_id;
-                        $ids[] = $item->id;
+            foreach($search_skus as $search_sku){
+                if($search_num != null){
+                    if(($item->parent_sku == $search_sku)&&($item->parent_num == $search_num)){
+                        if(!in_array($item->doc_id, $docids)){
+                            $docids[] = $item->doc_id;
+                            $ids[] = $item->id;
+                        }
                     }
-                }
-            }else{
-                if(($item->parent_sku == $search_sku)){
-                    if(!in_array($item->doc_id, $docids)){
-                        $docids[] = $item->doc_id;
-                        $ids[] = $item->id;
+                }else{
+                    if((strcmp($item->parent_sku , $search_sku)==0)){
+                        if(!in_array($item->doc_id, $docids)){
+                            $docids[] = $item->doc_id;
+                            $ids[] = $item->id;
+                        }
                     }
                 }
             }
         }
+
 
         $query = Orderdocument::query();
         $query->wherein('id', $ids);

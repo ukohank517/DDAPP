@@ -9,7 +9,8 @@
                 <div class="card-header">在庫品処理ページ</div>
                 <div class="card-body">
                     <form action="{{route('stock_work::work.deal_and_recommend')}}">
-                        <p><input type ="checkbox" name="zero_ignore" value={{$zero_ignore}}>　0在庫無視</p>
+                        <!-- 実装予定 -->
+                        <!-- <p><input type ="checkbox" name="zero_ignore" value={{$zero_ignore}}>　0在庫無視</p> -->
                         <p><input type ="hidden" name="former_sku" value={{$former_sku}}></p>
                         @if(Session::has('print_flag'))
                         <input type="submit" class="btn btn-primary btn-join" disabled="true" value="システムより提案">
